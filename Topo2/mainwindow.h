@@ -15,6 +15,13 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
+private slots:
+    void pushButtonNodeSlot();
+    void pushButtonLineSlot();
+    void pushButtonConfigureSlot();
+    void pushButtonDeleteSlot();
+    void pushButtonArrowSlot();
+
 private:
     Ui::MainWindow *ui;
 };

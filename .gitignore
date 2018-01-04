@@ -30,3 +30,7 @@
 *.exe
 *.out
 *.app
+
+build-Topo2-Desktop_Qt_5_9_2_GCC_64bit-Debug
+build-Topo2-Desktop_Qt_5_9_2_GCC_64bit-Debug/*
+

@@ -58,6 +58,8 @@
 
 #include <QtDebug>
 
+extern int NodePixmapFlag;
+
 //! [0]
 GraphWidget::GraphWidget(QWidget *parent)
     : QGraphicsView(parent), timerId(0)
@@ -65,18 +67,19 @@ GraphWidget::GraphWidget(QWidget *parent)
     QGraphicsScene *scene = new QGraphicsScene(this);
     g_scene = scene;
     scene->setItemIndexMethod(QGraphicsScene::NoIndex);
-    scene->setSceneRect(-200, -200, 800, 400);
+    scene->setSceneRect(-400, -200, 800, 400);
     setScene(scene);
     setCacheMode(CacheBackground);
     setViewportUpdateMode(BoundingRectViewportUpdate);
     setRenderHint(QPainter::Antialiasing);
     setTransformationAnchor(AnchorUnderMouse);
     scale(qreal(0.8), qreal(0.8));
-    setMinimumSize(400, 400);
+    setMinimumSize(400, 200);
     setWindowTitle(tr("Elastic Nodes"));
 //! [0]
 
 //! [1]
+/*
     Node *node1 = new Node(this);
     Node *node2 = new Node(this);
     Node *node3 = new Node(this);
@@ -117,6 +120,7 @@ GraphWidget::GraphWidget(QWidget *parent)
     node7->setPos(-50, 50);
     node8->setPos(0, 50);
     node9->setPos(50, 50);
+*/
 }
 //! [1]
 
@@ -213,7 +217,7 @@ void GraphWidget::drawBackground(QPainter *painter, const QRectF &rect)
     // Fill
     QLinearGradient gradient(sceneRect.topLeft(), sceneRect.bottomRight());
     gradient.setColorAt(0, Qt::white);
-    gradient.setColorAt(1, Qt::white);
+    gradient.setColorAt(1, Qt::lightGray);
     painter->fillRect(rect.intersected(sceneRect), gradient);
     painter->setBrush(Qt::NoBrush);
     painter->drawRect(sceneRect);
@@ -267,13 +271,17 @@ void GraphWidget::zoomOut()
 void GraphWidget::mouseDoubleClickEvent(QMouseEvent *event)
 {
     QPoint point;
+    QPointF pointf;
 
     if (event->button() == Qt::LeftButton){
-        Node *node10 = new Node(this);
-        g_scene->addItem(node10);
-        //g_scene->addItem(new Edge(node10, centerNode));
-        point = event->pos();
-        qDebug()<<"x="<<point.x()<<"\ny="<<point.y()<<endl;
-        node10->setPos(point.x()-400,point.y()-200);
+        if(NodePixmapFlag){
+            Node *node10 = new Node(this);
+            g_scene->addItem(node10);
+            //g_scene->addItem(new Edge(node10, centerNode));
+            point = event->pos();
+            qDebug()<<"x="<<point.x()<<"\ny="<<point.y()<<endl;
+            pointf = this->mapToScene(point);
+            node10->setPos(pointf.x(),pointf.y());
+        }
     }
 }
