@@ -51,6 +51,7 @@
 #include "graphwidget.h"
 #include "edge.h"
 #include "node.h"
+#include "globaldefs.h"
 
 #include <math.h>
 
@@ -58,7 +59,9 @@
 
 #include <QtDebug>
 
-extern int NodePixmapFlag;
+extern int buttonFlag;
+
+NManager nodeInfoManager;
 
 //! [0]
 GraphWidget::GraphWidget(QWidget *parent)
@@ -77,6 +80,10 @@ GraphWidget::GraphWidget(QWidget *parent)
     setMinimumSize(400, 200);
     setWindowTitle(tr("Elastic Nodes"));
 //! [0]
+
+    nodeInfoManager.curNode = NULL;
+    nodeInfoManager.lasterNode = NULL;
+    nodeInfoManager.g_scene = g_scene;
 
 //! [1]
 /*
@@ -225,8 +232,7 @@ void GraphWidget::drawBackground(QPainter *painter, const QRectF &rect)
     // Text
     QRectF textRect(sceneRect.left() + 4, sceneRect.top() + 4,
                     sceneRect.width() - 4, sceneRect.height() - 4);
-    QString message(tr("Click and drag the nodes around, and zoom with the mouse "
-                       "wheel or the '+' and '-' keys"));
+    QString message(tr("Router configure software"));
 
     QFont font = painter->font();
     font.setBold(true);
@@ -274,7 +280,7 @@ void GraphWidget::mouseDoubleClickEvent(QMouseEvent *event)
     QPointF pointf;
 
     if (event->button() == Qt::LeftButton){
-        if(NodePixmapFlag){
+        if(CLICK_NODE_BUTTON == buttonFlag){
             Node *node10 = new Node(this);
             g_scene->addItem(node10);
             //g_scene->addItem(new Edge(node10, centerNode));

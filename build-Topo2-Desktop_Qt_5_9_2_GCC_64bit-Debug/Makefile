@@ -225,6 +225,7 @@ DIST          = /home/luomin/Qt5.9.2/5.9.2/gcc_64/mkspecs/features/spec_pre.prf 
 		/home/luomin/Qt5.9.2/5.9.2/gcc_64/mkspecs/features/qt_config.prf \
 		/home/luomin/Qt5.9.2/5.9.2/gcc_64/mkspecs/linux-g++/qmake.conf \
 		/home/luomin/Qt5.9.2/5.9.2/gcc_64/mkspecs/features/spec_post.prf \
+		../Topo2/.qmake.stash \
 		/home/luomin/Qt5.9.2/5.9.2/gcc_64/mkspecs/features/exclusive_builds.prf \
 		/home/luomin/Qt5.9.2/5.9.2/gcc_64/mkspecs/features/toolchain.prf \
 		/home/luomin/Qt5.9.2/5.9.2/gcc_64/mkspecs/features/default_pre.prf \
@@ -247,7 +248,8 @@ DIST          = /home/luomin/Qt5.9.2/5.9.2/gcc_64/mkspecs/features/spec_pre.prf 
 		../Topo2/Topo2.pro ../Topo2/mainwindow.h \
 		../Topo2/edge.h \
 		../Topo2/graphwidget.h \
-		../Topo2/node.h ../Topo2/main.cpp \
+		../Topo2/node.h \
+		../Topo2/globaldefs.h ../Topo2/main.cpp \
 		../Topo2/mainwindow.cpp \
 		../Topo2/edge.cpp \
 		../Topo2/graphwidget.cpp \
@@ -423,6 +425,7 @@ Makefile: ../Topo2/Topo2.pro /home/luomin/Qt5.9.2/5.9.2/gcc_64/mkspecs/linux-g++
 		/home/luomin/Qt5.9.2/5.9.2/gcc_64/mkspecs/features/qt_config.prf \
 		/home/luomin/Qt5.9.2/5.9.2/gcc_64/mkspecs/linux-g++/qmake.conf \
 		/home/luomin/Qt5.9.2/5.9.2/gcc_64/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		/home/luomin/Qt5.9.2/5.9.2/gcc_64/mkspecs/features/exclusive_builds.prf \
 		/home/luomin/Qt5.9.2/5.9.2/gcc_64/mkspecs/features/toolchain.prf \
 		/home/luomin/Qt5.9.2/5.9.2/gcc_64/mkspecs/features/default_pre.prf \
@@ -608,6 +611,7 @@ Makefile: ../Topo2/Topo2.pro /home/luomin/Qt5.9.2/5.9.2/gcc_64/mkspecs/linux-g++
 /home/luomin/Qt5.9.2/5.9.2/gcc_64/mkspecs/features/qt_config.prf:
 /home/luomin/Qt5.9.2/5.9.2/gcc_64/mkspecs/linux-g++/qmake.conf:
 /home/luomin/Qt5.9.2/5.9.2/gcc_64/mkspecs/features/spec_post.prf:
+.qmake.stash:
 /home/luomin/Qt5.9.2/5.9.2/gcc_64/mkspecs/features/exclusive_builds.prf:
 /home/luomin/Qt5.9.2/5.9.2/gcc_64/mkspecs/features/toolchain.prf:
 /home/luomin/Qt5.9.2/5.9.2/gcc_64/mkspecs/features/default_pre.prf:
@@ -648,7 +652,7 @@ distdir: FORCE
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents ../Topo2/res.qrc $(DISTDIR)/
 	$(COPY_FILE) --parents /home/luomin/Qt5.9.2/5.9.2/gcc_64/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../Topo2/mainwindow.h ../Topo2/edge.h ../Topo2/graphwidget.h ../Topo2/node.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../Topo2/mainwindow.h ../Topo2/edge.h ../Topo2/graphwidget.h ../Topo2/node.h ../Topo2/globaldefs.h $(DISTDIR)/
 	$(COPY_FILE) --parents ../Topo2/main.cpp ../Topo2/mainwindow.cpp ../Topo2/edge.cpp ../Topo2/graphwidget.cpp ../Topo2/node.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../Topo2/mainwindow.ui $(DISTDIR)/
 
@@ -1159,6 +1163,53 @@ mainwindow.o: ../Topo2/mainwindow.cpp ../Topo2/mainwindow.h \
 		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtWidgets/qtabwidget.h \
 		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtGui/qicon.h \
 		ui_mainwindow.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtCore/QVariant \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtWidgets/QAction \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtWidgets/qaction.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtWidgets/qactiongroup.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtWidgets/QApplication \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtWidgets/qapplication.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtCore/qcoreapplication.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtCore/qeventloop.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtWidgets/qdesktopwidget.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtGui/qguiapplication.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtGui/qinputmethod.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtWidgets/QButtonGroup \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtWidgets/qbuttongroup.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtWidgets/QGridLayout \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtWidgets/qgridlayout.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtWidgets/qlayout.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtWidgets/qlayoutitem.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtWidgets/qboxlayout.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtWidgets/QHeaderView \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtWidgets/qheaderview.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtWidgets/qabstractitemview.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtWidgets/qabstractscrollarea.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtWidgets/qframe.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtCore/qabstractitemmodel.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtCore/qitemselectionmodel.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtWidgets/qabstractitemdelegate.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtWidgets/qstyleoption.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtWidgets/qabstractspinbox.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtGui/qvalidator.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtCore/qregularexpression.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtWidgets/qslider.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtWidgets/qabstractslider.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtWidgets/qstyle.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtWidgets/qtabbar.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtWidgets/qrubberband.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtWidgets/QMenu \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtWidgets/qmenu.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtWidgets/QMenuBar \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtWidgets/qmenubar.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtWidgets/QPushButton \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtWidgets/qpushbutton.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtWidgets/qabstractbutton.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtWidgets/QStatusBar \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtWidgets/qstatusbar.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtWidgets/QToolBar \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtWidgets/qtoolbar.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtWidgets/QWidget \
 		../Topo2/graphwidget.h \
 		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtWidgets/QGraphicsView \
 		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtWidgets/qgraphicsview.h \
@@ -1166,9 +1217,8 @@ mainwindow.o: ../Topo2/mainwindow.cpp ../Topo2/mainwindow.h \
 		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtGui/qtextoption.h \
 		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtGui/qpen.h \
 		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtWidgets/qscrollarea.h \
-		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtWidgets/qabstractscrollarea.h \
-		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtWidgets/qframe.h \
-		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtWidgets/qgraphicsscene.h
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtWidgets/qgraphicsscene.h \
+		../Topo2/globaldefs.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../Topo2/mainwindow.cpp
 
 edge.o: ../Topo2/edge.cpp ../Topo2/edge.h \

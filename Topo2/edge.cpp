@@ -50,10 +50,14 @@
 
 #include "edge.h"
 #include "node.h"
+#include "globaldefs.h"
 
 #include <math.h>
 
 #include <QPainter>
+
+extern NManager nodeInfoManager;
+extern int buttonFlag;
 
 static const double Pi = 3.14159265358979323846264338327950288419717;
 static double TwoPi = 2.0 * Pi;
@@ -156,4 +160,11 @@ void Edge::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
     //painter->drawPolygon(QPolygonF() << line.p1() << sourceArrowP1 << sourceArrowP2);
     //painter->drawPolygon(QPolygonF() << line.p2() << destArrowP1 << destArrowP2);
 }
+
+void Edge::mousePressEvent(QGraphicsSceneMouseEvent *event){
+    if(CLICK_DELETE_BUTTON == buttonFlag){
+        nodeInfoManager.g_scene->removeItem(this);
+    }
+}
+
 //! [6]

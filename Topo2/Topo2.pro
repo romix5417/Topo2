@@ -34,7 +34,8 @@ HEADERS += \
         mainwindow.h \
     edge.h \
     graphwidget.h \
-    node.h
+    node.h \
+    globaldefs.h
 
 FORMS += \
         mainwindow.ui

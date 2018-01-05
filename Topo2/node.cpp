@@ -51,11 +51,17 @@
 #include "edge.h"
 #include "node.h"
 #include "graphwidget.h"
+#include "globaldefs.h"
 
 #include <QGraphicsScene>
 #include <QGraphicsSceneMouseEvent>
 #include <QPainter>
 #include <QStyleOption>
+
+#include <QDebug>
+
+extern NManager nodeInfoManager;
+extern int buttonFlag;
 
 //! [0]
 Node::Node(GraphWidget *graphWidget)
@@ -224,8 +230,34 @@ QVariant Node::itemChange(GraphicsItemChange change, const QVariant &value)
 //! [12]
 void Node::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
+    if(CLICK_LINE_BUTTON == buttonFlag){
+        qDebug()<<"Get the Node info!\r\n"<<endl;
+        if(nodeInfoManager.curNode == NULL && nodeInfoManager.lasterNode == NULL){
+            qDebug()<<"Get the Node info debug 1!\r\n"<<endl;
+            nodeInfoManager.curNode = this;
+        }else if(nodeInfoManager.curNode != NULL && nodeInfoManager.lasterNode == NULL){
+           qDebug()<<"Get the Node info debug 2!\r\n"<<endl;
+           nodeInfoManager.lasterNode = this;
+
+           nodeInfoManager.g_scene->addItem(new Edge(nodeInfoManager.curNode, nodeInfoManager.lasterNode));
+           nodeInfoManager.curNode = NULL;
+           nodeInfoManager.lasterNode = NULL;
+        }else{
+           qDebug()<<"Get the Node info debug 3!\r\n"<<endl;
+           ;
+        }
+    }
+
     update();
     QGraphicsItem::mousePressEvent(event);
+
+    if(CLICK_DELETE_BUTTON == buttonFlag){
+        foreach (Edge *edge, edgeList)
+            if(edge != NULL)
+                nodeInfoManager.g_scene->removeItem(edge);
+
+        nodeInfoManager.g_scene->removeItem(this);
+    }
 }
 
 void Node::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)

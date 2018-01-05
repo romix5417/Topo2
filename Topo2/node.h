@@ -89,6 +89,9 @@ private:
     QList<Edge *> edgeList;
     QPointF newPos;
     GraphWidget *graph;
+    quint32 ipv4Addr;
+    quint32 ipv4mask;
+    quint32 nodeNum;
 };
 //! [0]
 

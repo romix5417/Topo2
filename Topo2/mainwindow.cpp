@@ -2,8 +2,10 @@
 #include "ui_mainwindow.h"
 
 #include "graphwidget.h"
+#include "globaldefs.h"
 
-int NodePixmapFlag = 0;
+int buttonFlag = CLICK_ARROW_BUTTON;
+
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -32,7 +34,7 @@ void MainWindow::pushButtonNodeSlot()
     cursor = QCursor(pixmap, -1, -1);
     setCursor(cursor);
 
-    NodePixmapFlag = 1;
+    buttonFlag = CLICK_NODE_BUTTON;
 }
 
 void MainWindow::pushButtonLineSlot()
@@ -44,7 +46,7 @@ void MainWindow::pushButtonLineSlot()
     cursor = QCursor(pixmap, -1, -1);
     setCursor(cursor);
 
-    NodePixmapFlag = 0;
+    buttonFlag = CLICK_LINE_BUTTON;
 }
 
 void MainWindow::pushButtonDeleteSlot()
@@ -57,7 +59,7 @@ void MainWindow::pushButtonDeleteSlot()
     cursor = QCursor(pixmap, -1, -1);
     setCursor(cursor);
 
-    NodePixmapFlag = 0;
+    buttonFlag = CLICK_DELETE_BUTTON;
 }
 
 void MainWindow::pushButtonConfigureSlot()
@@ -65,7 +67,7 @@ void MainWindow::pushButtonConfigureSlot()
     //set cursor
     setCursor(QCursor(Qt::WaitCursor));
 
-    NodePixmapFlag = 0;
+    buttonFlag = CLICK_CONFIG_BUTTON;
 }
 
 void MainWindow::pushButtonArrowSlot()
@@ -73,7 +75,7 @@ void MainWindow::pushButtonArrowSlot()
     //set cursor
     setCursor(QCursor(Qt::ArrowCursor));
 
-    NodePixmapFlag = 0;
+    buttonFlag = CLICK_ARROW_BUTTON;
 }
 
 MainWindow::~MainWindow()
