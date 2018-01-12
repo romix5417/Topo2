@@ -6,6 +6,8 @@
 
 int buttonFlag = CLICK_ARROW_BUTTON;
 
+extern NManager nodeInfoManager;
+
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -68,6 +70,8 @@ void MainWindow::pushButtonConfigureSlot()
     setCursor(QCursor(Qt::WaitCursor));
 
     buttonFlag = CLICK_CONFIG_BUTTON;
+
+    calculate_route();
 }
 
 void MainWindow::pushButtonArrowSlot()

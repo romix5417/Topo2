@@ -28,7 +28,8 @@ SOURCES += \
         mainwindow.cpp \
     edge.cpp \
     graphwidget.cpp \
-    node.cpp
+    node.cpp \
+    globaldefs.cpp
 
 HEADERS += \
         mainwindow.h \

@@ -78,18 +78,24 @@ public:
     QRectF boundingRect() const override;
     QPainterPath shape() const override;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
+    void setIPv4addr(quint32 addr);
+    void setIPv4mask(quint32 addr);
+    void setNodeNum(quint32 num);
+    QString get_stripv4addr();
+    quint32 get_nodeNum();
 
 protected:
     QVariant itemChange(GraphicsItemChange change, const QVariant &value) override;
 
     void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event) override;
+    void hoverEnterEvent(QGraphicsSceneHoverEvent *event) override;
 
 private:
     QList<Edge *> edgeList;
     QPointF newPos;
     GraphWidget *graph;
-    quint32 ipv4Addr;
+    quint32 ipv4addr;
     quint32 ipv4mask;
     quint32 nodeNum;
 };

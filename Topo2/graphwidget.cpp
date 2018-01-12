@@ -61,7 +61,8 @@
 
 extern int buttonFlag;
 
-NManager nodeInfoManager;
+extern NManager nodeInfoManager;
+
 
 //! [0]
 GraphWidget::GraphWidget(QWidget *parent)
@@ -84,6 +85,8 @@ GraphWidget::GraphWidget(QWidget *parent)
     nodeInfoManager.curNode = NULL;
     nodeInfoManager.lasterNode = NULL;
     nodeInfoManager.g_scene = g_scene;
+    nodeInfoManager.nodePool = 0;
+    nodeInfoManager.ipv4addrPool = 0x0a000064;
 
 //! [1]
 /*
@@ -278,16 +281,29 @@ void GraphWidget::mouseDoubleClickEvent(QMouseEvent *event)
 {
     QPoint point;
     QPointF pointf;
+    quint32 ipv4addr;
+    quint32 ipv4mask;
+    quint32 nodeNum;
 
     if (event->button() == Qt::LeftButton){
         if(CLICK_NODE_BUTTON == buttonFlag){
-            Node *node10 = new Node(this);
-            g_scene->addItem(node10);
+            Node *node = new Node(this);
+            nodeNum  = get_nodenumber();
+            ipv4addr = get_ipv4addr(nodeNum);
+            ipv4mask = get_ipv4mask();
+
+            node->setIPv4addr(ipv4addr);
+            node->setIPv4mask(ipv4mask);
+            node->setNodeNum(nodeNum);
+
+            g_scene->addItem(node);
             //g_scene->addItem(new Edge(node10, centerNode));
             point = event->pos();
             qDebug()<<"x="<<point.x()<<"\ny="<<point.y()<<endl;
             pointf = this->mapToScene(point);
-            node10->setPos(pointf.x(),pointf.y());
+            node->setPos(pointf.x(),pointf.y());
+
+            nodeInfoManager.nodeList << node;
         }
     }
 }

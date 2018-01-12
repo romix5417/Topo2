@@ -71,6 +71,7 @@ Node::Node(GraphWidget *graphWidget)
     setFlag(ItemSendsGeometryChanges);
     setCacheMode(DeviceCoordinateCache);
     setZValue(-1);
+    setAcceptHoverEvents(true);
 }
 //! [0]
 
@@ -158,7 +159,7 @@ bool Node::advance()
 QRectF Node::boundingRect() const
 {
     qreal adjust = 6;
-    return QRectF( -30 - adjust, -35 - adjust, 60 + adjust, 76 + adjust);
+    return QRectF( -42 - adjust, -30 - adjust, 84 + adjust, 60 + adjust);
 }
 //! [8]
 
@@ -198,6 +199,21 @@ QPainterPath Node::shape() const
 }*/
 //! [10]
 
+QString Node::get_stripv4addr()
+{
+    char stripv4addr[16]={0};
+    unsigned char *charipv4addr =  (unsigned char*)(&ipv4addr);
+    //qDebug()<<"ipv4addr:"<<hex<<charipv4addr[0]<<endl;
+    //qDebug()<<"ipv4addr:"<<hex<<charipv4addr[1]<<endl;
+    //qDebug()<<"ipv4addr:"<<hex<<charipv4addr[2]<<endl;
+    //qDebug()<<"ipv4addr:"<<hex<<charipv4addr[3]<<endl;
+
+    sprintf(stripv4addr,"%d.%d.%d.%d/24",charipv4addr[3], charipv4addr[2], charipv4addr[1], charipv4addr[0]);
+    //qDebug()<<stripv4addr<<endl;
+
+    return QString(stripv4addr);
+}
+
 void Node::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *)
 {
     //painter->setPen(Qt::NoPen);
@@ -208,7 +224,9 @@ void Node::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWid
     pix.load(":/images/node.png");
 
     painter->drawPixmap(-16,-16,pix);
-    painter->drawText(-40,30,QString("10.0.0.100"));
+
+    QString stripv4addr = get_stripv4addr();
+    painter->drawText(-48,28,stripv4addr);
 }
 //! [11]
 QVariant Node::itemChange(GraphicsItemChange change, const QVariant &value)
@@ -226,6 +244,12 @@ QVariant Node::itemChange(GraphicsItemChange change, const QVariant &value)
     return QGraphicsItem::itemChange(change, value);
 }
 //! [11]
+
+void Node::hoverEnterEvent(QGraphicsSceneHoverEvent *event)
+{
+    qDebug()<<"show the tool tip"<<endl;
+    this->setToolTip(QString("route table: \n10.0.0.100/24\n10.0.0.101/24\n10.0.0.102/24\n10.0.0.103/24"));
+}
 
 //! [12]
 void Node::mousePressEvent(QGraphicsSceneMouseEvent *event)
@@ -256,6 +280,7 @@ void Node::mousePressEvent(QGraphicsSceneMouseEvent *event)
             if(edge != NULL)
                 nodeInfoManager.g_scene->removeItem(edge);
 
+        nodeInfoManager.nodeList.removeOne(this);
         nodeInfoManager.g_scene->removeItem(this);
     }
 }
@@ -265,4 +290,25 @@ void Node::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
     update();
     QGraphicsItem::mouseReleaseEvent(event);
 }
+
+void Node::setIPv4addr(quint32 addr)
+{
+    this->ipv4addr = addr;
+}
+
+void Node::setIPv4mask(quint32 addr)
+{
+    this->ipv4mask = addr;
+}
+
+void Node::setNodeNum(quint32 num)
+{
+    this->nodeNum = num;
+}
+
+quint32 Node::get_nodeNum()
+{
+    return nodeNum;
+}
+
 //! [12]

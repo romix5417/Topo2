@@ -10,7 +10,19 @@ typedef struct nodeManager{
     Node *curNode;
     QGraphicsScene *g_scene;
     QList<Node *> nodeList;
+    quint32 nodePool;
+    quint32 ipv4addrPool;
+    quint32 ipv4addrMask;
 }NManager;
+
+
+quint32 get_ipv4addr(quint32 number);
+
+quint32 get_nodenumber();
+
+quint32 get_ipv4mask();
+
+void calculate_route();
 
 #define CLICK_ARROW_BUTTON 0
 #define CLICK_NODE_BUTTON 1
