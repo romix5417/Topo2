@@ -51,6 +51,8 @@
 #ifndef NODE_H
 #define NODE_H
 
+#include "route.h"
+
 #include <QGraphicsItem>
 #include <QList>
 
@@ -82,7 +84,11 @@ public:
     void setIPv4mask(quint32 addr);
     void setNodeNum(quint32 num);
     QString get_stripv4addr();
+    quint32 get_ipv4addr();
     quint32 get_nodeNum();
+    rtable *get_rtable() ;
+    void setSelectFlag(bool flag);
+    bool getSelectFlag();
 
 protected:
     QVariant itemChange(GraphicsItemChange change, const QVariant &value) override;
@@ -98,6 +104,8 @@ private:
     quint32 ipv4addr;
     quint32 ipv4mask;
     quint32 nodeNum;
+    rtable rt;
+    bool selectFlag;
 };
 //! [0]
 

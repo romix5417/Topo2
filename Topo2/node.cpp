@@ -52,6 +52,7 @@
 #include "node.h"
 #include "graphwidget.h"
 #include "globaldefs.h"
+#include "route.h"
 
 #include <QGraphicsScene>
 #include <QGraphicsSceneMouseEvent>
@@ -72,6 +73,7 @@ Node::Node(GraphWidget *graphWidget)
     setCacheMode(DeviceCoordinateCache);
     setZValue(-1);
     setAcceptHoverEvents(true);
+    setSelectFlag(false);
 }
 //! [0]
 
@@ -227,6 +229,12 @@ void Node::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWid
 
     QString stripv4addr = get_stripv4addr();
     painter->drawText(-48,28,stripv4addr);
+
+    if(CLICK_LINE_BUTTON == buttonFlag && getSelectFlag()){
+        painter->setPen(Qt::green);
+        painter->drawRect(-40, -30, 80, 60);
+    }
+
 }
 //! [11]
 QVariant Node::itemChange(GraphicsItemChange change, const QVariant &value)
@@ -248,7 +256,25 @@ QVariant Node::itemChange(GraphicsItemChange change, const QVariant &value)
 void Node::hoverEnterEvent(QGraphicsSceneHoverEvent *event)
 {
     qDebug()<<"show the tool tip"<<endl;
-    this->setToolTip(QString("route table: \n10.0.0.100/24\n10.0.0.101/24\n10.0.0.102/24\n10.0.0.103/24"));
+
+    QString str = "route table:\n";
+    route item;
+
+    foreach (item, rt.routeItem) {
+        str += iptostr(item.ipv4addr) + QString(" gw ") + iptostr(item.nexthop) + QString("\n");
+    }
+
+    this->setToolTip(str);
+}
+
+void Node::setSelectFlag(bool flag)
+{
+    selectFlag = flag;
+}
+
+bool Node::getSelectFlag()
+{
+    return selectFlag;
 }
 
 //! [12]
@@ -259,13 +285,20 @@ void Node::mousePressEvent(QGraphicsSceneMouseEvent *event)
         if(nodeInfoManager.curNode == NULL && nodeInfoManager.lasterNode == NULL){
             qDebug()<<"Get the Node info debug 1!\r\n"<<endl;
             nodeInfoManager.curNode = this;
+            nodeInfoManager.curNode->setSelectFlag(true);
+
         }else if(nodeInfoManager.curNode != NULL && nodeInfoManager.lasterNode == NULL){
            qDebug()<<"Get the Node info debug 2!\r\n"<<endl;
            nodeInfoManager.lasterNode = this;
 
            nodeInfoManager.g_scene->addItem(new Edge(nodeInfoManager.curNode, nodeInfoManager.lasterNode));
+
+           nodeInfoManager.curNode->setSelectFlag(false);
+           nodeInfoManager.curNode->update();
+
            nodeInfoManager.curNode = NULL;
            nodeInfoManager.lasterNode = NULL;
+
         }else{
            qDebug()<<"Get the Node info debug 3!\r\n"<<endl;
            ;
@@ -306,9 +339,19 @@ void Node::setNodeNum(quint32 num)
     this->nodeNum = num;
 }
 
+quint32 Node::get_ipv4addr()
+{
+    return ipv4addr;
+}
+
 quint32 Node::get_nodeNum()
 {
     return nodeNum;
+}
+
+rtable* Node::get_rtable()
+{
+    return &rt;
 }
 
 //! [12]

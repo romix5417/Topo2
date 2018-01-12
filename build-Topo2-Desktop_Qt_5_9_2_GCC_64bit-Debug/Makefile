@@ -12,10 +12,10 @@ MAKEFILE      = Makefile
 
 CC            = gcc
 CXX           = g++
-DEFINES       = -DQT_DEPRECATED_WARNINGS -DQT_QML_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB
+DEFINES       = -DQT_DEPRECATED_WARNINGS -DQT_QML_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB
 CFLAGS        = -pipe -g -Wall -W -D_REENTRANT -fPIC $(DEFINES)
 CXXFLAGS      = -pipe -g -Wall -W -D_REENTRANT -fPIC $(DEFINES)
-INCPATH       = -I../Topo2 -I. -I/home/luomin/Qt5.9.2/5.9.2/gcc_64/include -I/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtWidgets -I/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtGui -I/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtCore -I. -isystem /usr/include/libdrm -I. -I/home/luomin/Qt5.9.2/5.9.2/gcc_64/mkspecs/linux-g++
+INCPATH       = -I../Topo2 -I. -I/home/luomin/Qt5.9.2/5.9.2/gcc_64/include -I/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtWidgets -I/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtGui -I/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtNetwork -I/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtCore -I. -isystem /usr/include/libdrm -I. -I/home/luomin/Qt5.9.2/5.9.2/gcc_64/mkspecs/linux-g++
 QMAKE         = /home/luomin/Qt5.9.2/5.9.2/gcc_64/bin/qmake
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
@@ -38,7 +38,7 @@ DISTNAME      = Topo21.0.0
 DISTDIR = /home/luomin/work/QtProject/topology2/Topo2/build-Topo2-Desktop_Qt_5_9_2_GCC_64bit-Debug/.tmp/Topo21.0.0
 LINK          = g++
 LFLAGS        = -Wl,-rpath,/home/luomin/Qt5.9.2/5.9.2/gcc_64/lib
-LIBS          = $(SUBLIBS) -L/home/luomin/Qt5.9.2/5.9.2/gcc_64/lib -lQt5Widgets -lQt5Gui -lQt5Core -lGL -lpthread 
+LIBS          = $(SUBLIBS) -L/home/luomin/Qt5.9.2/5.9.2/gcc_64/lib -lQt5Widgets -lQt5Gui -lQt5Network -lQt5Core -lGL -lpthread 
 AR            = ar cqs
 RANLIB        = 
 SED           = sed
@@ -55,7 +55,8 @@ SOURCES       = ../Topo2/main.cpp \
 		../Topo2/edge.cpp \
 		../Topo2/graphwidget.cpp \
 		../Topo2/node.cpp \
-		../Topo2/globaldefs.cpp qrc_res.cpp \
+		../Topo2/globaldefs.cpp \
+		../Topo2/network.cpp qrc_res.cpp \
 		moc_mainwindow.cpp \
 		moc_graphwidget.cpp
 OBJECTS       = main.o \
@@ -64,6 +65,7 @@ OBJECTS       = main.o \
 		graphwidget.o \
 		node.o \
 		globaldefs.o \
+		network.o \
 		qrc_res.o \
 		moc_mainwindow.o \
 		moc_graphwidget.o
@@ -251,12 +253,15 @@ DIST          = /home/luomin/Qt5.9.2/5.9.2/gcc_64/mkspecs/features/spec_pre.prf 
 		../Topo2/edge.h \
 		../Topo2/graphwidget.h \
 		../Topo2/node.h \
-		../Topo2/globaldefs.h ../Topo2/main.cpp \
+		../Topo2/globaldefs.h \
+		../Topo2/route.h \
+		../Topo2/network.h ../Topo2/main.cpp \
 		../Topo2/mainwindow.cpp \
 		../Topo2/edge.cpp \
 		../Topo2/graphwidget.cpp \
 		../Topo2/node.cpp \
-		../Topo2/globaldefs.cpp
+		../Topo2/globaldefs.cpp \
+		../Topo2/network.cpp
 QMAKE_TARGET  = Topo2
 DESTDIR       = 
 TARGET        = Topo2
@@ -452,6 +457,7 @@ Makefile: ../Topo2/Topo2.pro /home/luomin/Qt5.9.2/5.9.2/gcc_64/mkspecs/linux-g++
 		../Topo2/res.qrc \
 		/home/luomin/Qt5.9.2/5.9.2/gcc_64/lib/libQt5Widgets.prl \
 		/home/luomin/Qt5.9.2/5.9.2/gcc_64/lib/libQt5Gui.prl \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/lib/libQt5Network.prl \
 		/home/luomin/Qt5.9.2/5.9.2/gcc_64/lib/libQt5Core.prl
 	$(QMAKE) -o Makefile ../Topo2/Topo2.pro -spec linux-g++ CONFIG+=debug CONFIG+=qml_debug
 /home/luomin/Qt5.9.2/5.9.2/gcc_64/mkspecs/features/spec_pre.prf:
@@ -638,6 +644,7 @@ Makefile: ../Topo2/Topo2.pro /home/luomin/Qt5.9.2/5.9.2/gcc_64/mkspecs/linux-g++
 ../Topo2/res.qrc:
 /home/luomin/Qt5.9.2/5.9.2/gcc_64/lib/libQt5Widgets.prl:
 /home/luomin/Qt5.9.2/5.9.2/gcc_64/lib/libQt5Gui.prl:
+/home/luomin/Qt5.9.2/5.9.2/gcc_64/lib/libQt5Network.prl:
 /home/luomin/Qt5.9.2/5.9.2/gcc_64/lib/libQt5Core.prl:
 qmake: FORCE
 	@$(QMAKE) -o Makefile ../Topo2/Topo2.pro -spec linux-g++ CONFIG+=debug CONFIG+=qml_debug
@@ -655,8 +662,8 @@ distdir: FORCE
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents ../Topo2/res.qrc $(DISTDIR)/
 	$(COPY_FILE) --parents /home/luomin/Qt5.9.2/5.9.2/gcc_64/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../Topo2/mainwindow.h ../Topo2/edge.h ../Topo2/graphwidget.h ../Topo2/node.h ../Topo2/globaldefs.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../Topo2/main.cpp ../Topo2/mainwindow.cpp ../Topo2/edge.cpp ../Topo2/graphwidget.cpp ../Topo2/node.cpp ../Topo2/globaldefs.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../Topo2/mainwindow.h ../Topo2/edge.h ../Topo2/graphwidget.h ../Topo2/node.h ../Topo2/globaldefs.h ../Topo2/route.h ../Topo2/network.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../Topo2/main.cpp ../Topo2/mainwindow.cpp ../Topo2/edge.cpp ../Topo2/graphwidget.cpp ../Topo2/node.cpp ../Topo2/globaldefs.cpp ../Topo2/network.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../Topo2/mainwindow.ui $(DISTDIR)/
 
 
@@ -814,7 +821,7 @@ moc_mainwindow.cpp: /home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtWidgets/QMainWin
 		../Topo2/mainwindow.h \
 		moc_predefs.h \
 		/home/luomin/Qt5.9.2/5.9.2/gcc_64/bin/moc
-	/home/luomin/Qt5.9.2/5.9.2/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/home/luomin/Qt5.9.2/5.9.2/gcc_64/mkspecs/linux-g++ -I/home/luomin/work/QtProject/topology2/Topo2/Topo2 -I/home/luomin/Qt5.9.2/5.9.2/gcc_64/include -I/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtWidgets -I/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtGui -I/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../Topo2/mainwindow.h -o moc_mainwindow.cpp
+	/home/luomin/Qt5.9.2/5.9.2/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/home/luomin/Qt5.9.2/5.9.2/gcc_64/mkspecs/linux-g++ -I/home/luomin/work/QtProject/topology2/Topo2/Topo2 -I/home/luomin/Qt5.9.2/5.9.2/gcc_64/include -I/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtWidgets -I/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtGui -I/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtNetwork -I/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../Topo2/mainwindow.h -o moc_mainwindow.cpp
 
 moc_graphwidget.cpp: /home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtWidgets/QGraphicsView \
 		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtWidgets/qgraphicsview.h \
@@ -927,7 +934,7 @@ moc_graphwidget.cpp: /home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtWidgets/QGraphi
 		../Topo2/graphwidget.h \
 		moc_predefs.h \
 		/home/luomin/Qt5.9.2/5.9.2/gcc_64/bin/moc
-	/home/luomin/Qt5.9.2/5.9.2/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/home/luomin/Qt5.9.2/5.9.2/gcc_64/mkspecs/linux-g++ -I/home/luomin/work/QtProject/topology2/Topo2/Topo2 -I/home/luomin/Qt5.9.2/5.9.2/gcc_64/include -I/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtWidgets -I/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtGui -I/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../Topo2/graphwidget.h -o moc_graphwidget.cpp
+	/home/luomin/Qt5.9.2/5.9.2/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/home/luomin/Qt5.9.2/5.9.2/gcc_64/mkspecs/linux-g++ -I/home/luomin/work/QtProject/topology2/Topo2/Topo2 -I/home/luomin/Qt5.9.2/5.9.2/gcc_64/include -I/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtWidgets -I/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtGui -I/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtNetwork -I/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../Topo2/graphwidget.h -o moc_graphwidget.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
@@ -1213,6 +1220,7 @@ mainwindow.o: ../Topo2/mainwindow.cpp ../Topo2/mainwindow.h \
 		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtWidgets/QToolBar \
 		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtWidgets/qtoolbar.h \
 		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtWidgets/QWidget \
+		../Topo2/network.h \
 		../Topo2/graphwidget.h \
 		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtWidgets/QGraphicsView \
 		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtWidgets/qgraphicsview.h \
@@ -1224,6 +1232,7 @@ mainwindow.o: ../Topo2/mainwindow.cpp ../Topo2/mainwindow.h \
 		../Topo2/globaldefs.h \
 		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtGui/QList \
 		../Topo2/node.h \
+		../Topo2/route.h \
 		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtWidgets/QGraphicsItem \
 		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtWidgets/qgraphicsitem.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../Topo2/mainwindow.cpp
@@ -1315,6 +1324,7 @@ edge.o: ../Topo2/edge.cpp ../Topo2/edge.h \
 		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtGui/qpixelformat.h \
 		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtGui/qtransform.h \
 		../Topo2/node.h \
+		../Topo2/route.h \
 		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtGui/QList \
 		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtGui/qevent.h \
 		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtGui/qkeysequence.h \
@@ -1458,6 +1468,7 @@ graphwidget.o: ../Topo2/graphwidget.cpp ../Topo2/graphwidget.h \
 		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtWidgets/QGraphicsItem \
 		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtWidgets/qgraphicsitem.h \
 		../Topo2/node.h \
+		../Topo2/route.h \
 		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtGui/QList \
 		../Topo2/globaldefs.h \
 		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtGui/QKeyEvent \
@@ -1551,6 +1562,7 @@ node.o: ../Topo2/node.cpp ../Topo2/edge.h \
 		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtGui/qpixelformat.h \
 		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtGui/qtransform.h \
 		../Topo2/node.h \
+		../Topo2/route.h \
 		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtGui/QList \
 		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtGui/qevent.h \
 		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtGui/qkeysequence.h \
@@ -1710,12 +1722,112 @@ globaldefs.o: ../Topo2/globaldefs.cpp ../Topo2/globaldefs.h \
 		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtWidgets/qgraphicsscene.h \
 		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtGui/QList \
 		../Topo2/node.h \
+		../Topo2/route.h \
 		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtWidgets/QGraphicsItem \
 		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtWidgets/qgraphicsitem.h \
 		../Topo2/edge.h \
 		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtCore/QQueue \
-		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtCore/qqueue.h
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtCore/qqueue.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtCore/QDebug
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o globaldefs.o ../Topo2/globaldefs.cpp
+
+network.o: ../Topo2/network.cpp /home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtNetwork/QNetworkAccessManager \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtNetwork/qnetworkaccessmanager.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtNetwork/qtnetworkglobal.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtCore/qglobal.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtCore/qconfig-bootstrapped.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtCore/qconfig.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtCore/qtcore-config.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtCore/qsystemdetection.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtCore/qprocessordetection.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtCore/qcompilerdetection.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtCore/qtypeinfo.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtCore/qsysinfo.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtCore/qlogging.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtCore/qflags.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtCore/qatomic.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtCore/qbasicatomic.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtCore/qatomic_bootstrap.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtCore/qgenericatomic.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtCore/qatomic_cxx11.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtCore/qatomic_msvc.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtCore/qglobalstatic.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtCore/qmutex.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtCore/qnumeric.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtCore/qversiontagging.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtNetwork/qtnetwork-config.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtNetwork/qnetworkrequest.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtCore/QSharedDataPointer \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtCore/qshareddata.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtCore/qhash.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtCore/qchar.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtCore/qiterator.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtCore/qlist.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtCore/qalgorithms.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtCore/qrefcount.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtCore/qarraydata.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtCore/qhashfunctions.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtCore/qpair.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtCore/qbytearraylist.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtCore/qbytearray.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtCore/qnamespace.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtCore/qstring.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtCore/qstringbuilder.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtCore/qstringlist.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtCore/qregexp.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtCore/qstringmatcher.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtCore/QString \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtCore/QUrl \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtCore/qurl.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtCore/qobjectdefs.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtCore/qobjectdefs_impl.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtCore/qurlquery.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtCore/QVariant \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtCore/qvariant.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtCore/qmetatype.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtCore/qvarlengtharray.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtCore/qcontainerfwd.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtCore/qmap.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtCore/qdebug.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtCore/qtextstream.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtCore/qiodevice.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtCore/qobject.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtCore/qcoreevent.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtCore/qscopedpointer.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtCore/qobject_impl.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtCore/qlocale.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtCore/qvector.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtCore/qpoint.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtCore/qset.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtCore/qcontiguouscache.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtCore/qsharedpointer.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtCore/qsharedpointer_impl.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtCore/QVector \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtCore/QObject \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtNetwork/QSslConfiguration \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtNetwork/qsslconfiguration.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtNetwork/qsslsocket.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtNetwork/qtcpsocket.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtNetwork/qabstractsocket.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtNetwork/qsslerror.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtNetwork/qsslcertificate.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtCore/qcryptographichash.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtCore/qdatetime.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtNetwork/qssl.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtCore/QFlags \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtNetwork/QSslPreSharedKeyAuthenticator \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtNetwork/qsslpresharedkeyauthenticator.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtCore/QMetaType \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtNetwork/QNetworkRequest \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtNetwork/QNetworkReply \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtNetwork/qnetworkreply.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtCore/QIODevice \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtCore/QJsonObject \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtCore/qjsonobject.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtCore/qjsonvalue.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtCore/QJsonDocument \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtCore/qjsondocument.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o network.o ../Topo2/network.cpp
 
 qrc_res.o: qrc_res.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_res.o qrc_res.cpp

@@ -5,6 +5,7 @@
 #include <QList>
 #include <node.h>
 
+
 typedef struct nodeManager{
     Node *lasterNode;
     Node *curNode;
@@ -21,6 +22,10 @@ quint32 get_ipv4addr(quint32 number);
 quint32 get_nodenumber();
 
 quint32 get_ipv4mask();
+
+QString iptostr(quint32 ipv4addr);
+
+void route_resolving();
 
 void calculate_route();
 

@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "network.h"
 
 #include "graphwidget.h"
 #include "globaldefs.h"
@@ -72,6 +73,8 @@ void MainWindow::pushButtonConfigureSlot()
     buttonFlag = CLICK_CONFIG_BUTTON;
 
     calculate_route();
+
+    httpRequest();
 }
 
 void MainWindow::pushButtonArrowSlot()

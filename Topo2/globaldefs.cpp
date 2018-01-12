@@ -24,6 +24,21 @@ quint32 get_ipv4mask()
     return nodeInfoManager.ipv4addrMask;
 }
 
+QString iptostr(quint32 ipv4addr)
+{
+    char stripv4addr[16]={0};
+    unsigned char *charipv4addr =  (unsigned char*)(&ipv4addr);
+    //qDebug()<<"ipv4addr:"<<hex<<charipv4addr[0]<<endl;
+    //qDebug()<<"ipv4addr:"<<hex<<charipv4addr[1]<<endl;
+    //qDebug()<<"ipv4addr:"<<hex<<charipv4addr[2]<<endl;
+    //qDebug()<<"ipv4addr:"<<hex<<charipv4addr[3]<<endl;
+
+    sprintf(stripv4addr,"%d.%d.%d.%d",charipv4addr[3], charipv4addr[2], charipv4addr[1], charipv4addr[0]);
+    //qDebug()<<stripv4addr<<endl;
+
+    return QString(stripv4addr);
+}
+
 void node_recur(QQueue<Node *> &queue, Node *node)
 {
     QList<Edge *> edgeList;
@@ -51,6 +66,41 @@ void node_recur(QQueue<Node *> &queue, Node *node)
     }
 }
 
+void route_resolving(QQueue<Node *> &queue)
+{
+    Node *firstNode = NULL, *secNode = NULL, *tempNode = NULL;
+    route routeItem;
+    quint32 addr, gwaddr;
+    rtable *rt = NULL;
+
+    if(!queue.isEmpty()){
+        firstNode = queue.dequeue();
+        rt = firstNode->get_rtable();
+    }
+
+    if(!queue.isEmpty()){
+        secNode = queue.dequeue();
+        addr = secNode->get_ipv4addr();
+        gwaddr = addr;
+        routeItem.ipv4addr = addr;
+        routeItem.nexthop = gwaddr;
+
+
+        rt->routeItem << routeItem;
+    }
+
+    while(!queue.isEmpty()){
+        tempNode = queue.dequeue();
+        addr = tempNode->get_ipv4addr();
+
+        routeItem.ipv4addr = addr;
+        routeItem.nexthop = gwaddr;
+
+        rt->routeItem << routeItem;
+    }
+
+}
+
 void calculate_route()
 {
     QList<Node *> nodeList = nodeInfoManager.nodeList;
@@ -75,13 +125,7 @@ void calculate_route()
 
             node_recur(queue, tempNode);
 
-            while(!queue.isEmpty()){
-                qDebug()<<queue.dequeue()->get_nodeNum();
-            }
-
-            qDebug()<<endl;
+            route_resolving(queue);
         }
-
-
     }
 }

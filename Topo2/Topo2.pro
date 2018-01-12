@@ -5,7 +5,7 @@
 #-------------------------------------------------
 
 QT       += core gui
-
+QT       += network
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = Topo2
@@ -29,14 +29,17 @@ SOURCES += \
     edge.cpp \
     graphwidget.cpp \
     node.cpp \
-    globaldefs.cpp
+    globaldefs.cpp \
+    network.cpp
 
 HEADERS += \
         mainwindow.h \
     edge.h \
     graphwidget.h \
     node.h \
-    globaldefs.h
+    globaldefs.h \
+    route.h \
+    network.h
 
 FORMS += \
         mainwindow.ui
