@@ -4,26 +4,30 @@
 #include <QJsonObject>
 #include <QJsonDocument>
 
-int httpRequest()
+#include <QDebug>
+
+int httpRequest(QString url, QJsonObject obj)
 {
-    QNetworkAccessManager *manager = new QNetworkAccessManager;
+    QNetworkAccessManager *manager = new QNetworkAccessManager();
 
-    QJsonObject obj;
-
-    obj.insert("route", QString("10.0.0.102"));
-    obj.insert("gw", QString("10.0.0.101"));
+    //设置发送的数据
+    //obj.insert("route", QString("10.0.0.102"));
+    //obj.insert("gw", QString("10.0.0.101"));
 
     QNetworkRequest req;
+    QSslConfiguration config;
 
-    req.setUrl(QUrl("http://localhost:5000/hello"));
+    config.setPeerVerifyMode(QSslSocket::VerifyNone);
+    config.setProtocol(QSsl::SslV2);
+    req.setSslConfiguration(config);
 
+    qDebug()<<"url:"<<url<<endl;
+    req.setUrl(QUrl(url));
+
+    req.setHeader(QNetworkRequest::ContentTypeHeader, QVariant("application/json;charset=UTF-8"));
+    //req.setHeader(QNetworkRequest::ContentTypeHeader, QVariant("application/x-www-form-urlencoded"));
     manager->post(req, QJsonDocument(obj).toJson());
 
-    //QByteArray postArray;
-
-    //postArray.append("/hello");
-
-    //manager->post(req, postArray);
 
     QObject::connect(manager, &QNetworkAccessManager::finished, [](QNetworkReply *reply){
         if(reply->error() != QNetworkReply::NoError){

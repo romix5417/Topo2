@@ -11,5 +11,7 @@
         <file>images/node_64x64.png</file>
         <file>images/router_32x32.png</file>
         <file>images/router_64x64.png</file>
+        <file>images/mode_32x32.png</file>
+        <file>images/dynamic_32x32.png</file>
     </qresource>
 </RCC>

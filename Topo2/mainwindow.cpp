@@ -2,6 +2,8 @@
 #include "ui_mainwindow.h"
 #include "network.h"
 
+#include <QMessageBox>
+
 #include "graphwidget.h"
 #include "globaldefs.h"
 
@@ -74,7 +76,9 @@ void MainWindow::pushButtonConfigureSlot()
 
     calculate_route();
 
-    httpRequest();
+    QMessageBox::information(NULL, "提示", "配置路由器设备成功！", QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);
+
+    setCursor(QCursor(Qt::ArrowCursor));
 }
 
 void MainWindow::pushButtonArrowSlot()

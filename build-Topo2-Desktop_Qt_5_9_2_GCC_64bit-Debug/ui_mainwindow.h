@@ -42,9 +42,10 @@ public:
     QGridLayout *gridLayout_2;
     QPushButton *pushButton_line;
     QPushButton *pushButton_node;
-    QPushButton *pushButton_delete;
     QPushButton *pushButton_configure;
     QPushButton *pushButton_arrow;
+    QPushButton *pushButton_delete;
+    QPushButton *pushButton_mode;
     QMenuBar *menuBar;
     QMenu *menuFile;
     QMenu *menuOption;
@@ -114,7 +115,7 @@ public:
         pushButton_line->setIconSize(QSize(32, 32));
         pushButton_line->setFlat(true);
 
-        gridLayout_2->addWidget(pushButton_line, 2, 0, 1, 1);
+        gridLayout_2->addWidget(pushButton_line, 3, 0, 1, 1);
 
         pushButton_node = new QPushButton(widget);
         pushButton_node->setObjectName(QStringLiteral("pushButton_node"));
@@ -126,44 +127,54 @@ public:
         pushButton_node->setIconSize(QSize(32, 32));
         pushButton_node->setFlat(true);
 
-        gridLayout_2->addWidget(pushButton_node, 1, 0, 1, 1);
-
-        pushButton_delete = new QPushButton(widget);
-        pushButton_delete->setObjectName(QStringLiteral("pushButton_delete"));
-        QIcon icon3;
-        icon3.addFile(QStringLiteral(":/images/delete.png"), QSize(), QIcon::Normal, QIcon::Off);
-        pushButton_delete->setIcon(icon3);
-        pushButton_delete->setIconSize(QSize(32, 32));
-        pushButton_delete->setFlat(true);
-
-        gridLayout_2->addWidget(pushButton_delete, 3, 0, 1, 1);
+        gridLayout_2->addWidget(pushButton_node, 2, 0, 1, 1);
 
         pushButton_configure = new QPushButton(widget);
         pushButton_configure->setObjectName(QStringLiteral("pushButton_configure"));
-        QIcon icon4;
-        icon4.addFile(QStringLiteral(":/images/configure.png"), QSize(), QIcon::Normal, QIcon::Off);
-        pushButton_configure->setIcon(icon4);
+        QIcon icon3;
+        icon3.addFile(QStringLiteral(":/images/configure.png"), QSize(), QIcon::Normal, QIcon::Off);
+        pushButton_configure->setIcon(icon3);
         pushButton_configure->setIconSize(QSize(32, 32));
         pushButton_configure->setFlat(true);
 
-        gridLayout_2->addWidget(pushButton_configure, 0, 0, 1, 1);
+        gridLayout_2->addWidget(pushButton_configure, 1, 0, 1, 1);
 
         pushButton_arrow = new QPushButton(widget);
         pushButton_arrow->setObjectName(QStringLiteral("pushButton_arrow"));
-        QIcon icon5;
-        icon5.addFile(QStringLiteral(":/images/arrow_32x32.png"), QSize(), QIcon::Normal, QIcon::Off);
-        pushButton_arrow->setIcon(icon5);
+        QIcon icon4;
+        icon4.addFile(QStringLiteral(":/images/arrow_32x32.png"), QSize(), QIcon::Normal, QIcon::Off);
+        pushButton_arrow->setIcon(icon4);
         pushButton_arrow->setIconSize(QSize(32, 32));
         pushButton_arrow->setFlat(true);
 
-        gridLayout_2->addWidget(pushButton_arrow, 4, 0, 1, 1);
+        gridLayout_2->addWidget(pushButton_arrow, 5, 0, 1, 1);
+
+        pushButton_delete = new QPushButton(widget);
+        pushButton_delete->setObjectName(QStringLiteral("pushButton_delete"));
+        QIcon icon5;
+        icon5.addFile(QStringLiteral(":/images/delete.png"), QSize(), QIcon::Normal, QIcon::Off);
+        pushButton_delete->setIcon(icon5);
+        pushButton_delete->setIconSize(QSize(32, 32));
+        pushButton_delete->setFlat(true);
+
+        gridLayout_2->addWidget(pushButton_delete, 4, 0, 1, 1);
+
+        pushButton_mode = new QPushButton(widget);
+        pushButton_mode->setObjectName(QStringLiteral("pushButton_mode"));
+        QIcon icon6;
+        icon6.addFile(QStringLiteral(":/images/dynamic_32x32.png"), QSize(), QIcon::Normal, QIcon::Off);
+        pushButton_mode->setIcon(icon6);
+        pushButton_mode->setIconSize(QSize(32, 32));
+        pushButton_mode->setAutoRepeatDelay(300);
+        pushButton_mode->setFlat(true);
+
+        gridLayout_2->addWidget(pushButton_mode, 0, 0, 1, 1);
 
         gridLayout_2->setRowStretch(0, 1);
         gridLayout_2->setRowStretch(1, 1);
         gridLayout_2->setRowStretch(2, 1);
         gridLayout_2->setRowStretch(3, 1);
         gridLayout_2->setRowStretch(4, 1);
-        gridLayout_2->setRowStretch(5, 1);
 
         gridLayout->addWidget(widget, 0, 0, 1, 1);
 
@@ -215,9 +226,10 @@ public:
         actionClear_Screen->setText(QApplication::translate("MainWindow", "Clear Screen", Q_NULLPTR));
         pushButton_line->setText(QString());
         pushButton_node->setText(QString());
-        pushButton_delete->setText(QString());
         pushButton_configure->setText(QString());
         pushButton_arrow->setText(QString());
+        pushButton_delete->setText(QString());
+        pushButton_mode->setText(QString());
         menuFile->setTitle(QApplication::translate("MainWindow", "File", Q_NULLPTR));
         menuOption->setTitle(QApplication::translate("MainWindow", "Option", Q_NULLPTR));
         menuHelp->setTitle(QApplication::translate("MainWindow", "Help", Q_NULLPTR));

@@ -1,9 +1,12 @@
 #include "globaldefs.h"
 #include "node.h"
 #include "edge.h"
+#include "network.h"
+
 
 #include <QQueue>
 #include <QDebug>
+#include <QJsonArray>
 
 NManager nodeInfoManager;
 
@@ -108,6 +111,17 @@ void calculate_route()
     Edge *edge = NULL;
     QQueue<Node *> queue;
     QList<Edge *> edgeList;
+    QJsonObject obj;
+    int i = 0;
+
+    rtable *rt = NULL;
+    QJsonObject JsonOneItem;
+    QJsonArray *array;
+    route item;
+
+    QString url="http://";
+
+    qDebug()<<"run calculate!"<<endl;
 
     foreach (node, nodeList) {
 
@@ -127,5 +141,32 @@ void calculate_route()
 
             route_resolving(queue);
         }
+
+        url = "http://";
+        //url = url + iptostr(node->get_ipv4addr()) + QString(":8080");
+        url = url + QString("localhost:8080/hello");
+
+        obj.insert("node", QJsonValue((int)node->get_nodeNum()));
+        obj.insert("ipv4addr", iptostr(node->get_ipv4addr()));
+        obj.insert("mode", "static");
+
+        rt = node->get_rtable();
+
+        array = new QJsonArray();
+
+        foreach (item, rt->routeItem) {
+            JsonOneItem.insert("route", iptostr(item.ipv4addr));
+            JsonOneItem.insert("gw", iptostr(item.nexthop));
+
+            *array<<JsonOneItem;
+        }
+
+        obj.insert("routeItem", *array);
+
+        qDebug()<<"run httpRequest!"<<endl;
+        httpRequest(url, obj);
+
+        i = 0;
+        delete(array);
     }
 }

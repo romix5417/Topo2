@@ -42,8 +42,8 @@
       <property name="styleSheet">
        <string notr="true">background-color: rgb(249, 249, 247);</string>
       </property>
-      <layout class="QGridLayout" name="gridLayout_2" rowstretch="1,1,1,1,1,1" rowminimumheight="0,0,0,0,0,0">
-       <item row="2" column="0">
+      <layout class="QGridLayout" name="gridLayout_2" rowstretch="1,1,1,1,1,0" rowminimumheight="0,0,0,0,0,0">
+       <item row="3" column="0">
         <widget class="QPushButton" name="pushButton_line">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
@@ -69,7 +69,7 @@
          </property>
         </widget>
        </item>
-       <item row="1" column="0">
+       <item row="2" column="0">
         <widget class="QPushButton" name="pushButton_node">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
@@ -95,7 +95,47 @@
          </property>
         </widget>
        </item>
-       <item row="3" column="0">
+       <item row="1" column="0">
+        <widget class="QPushButton" name="pushButton_configure">
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset resource="res.qrc">
+           <normaloff>:/images/configure.png</normaloff>:/images/configure.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>32</width>
+           <height>32</height>
+          </size>
+         </property>
+         <property name="flat">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="0">
+        <widget class="QPushButton" name="pushButton_arrow">
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset resource="res.qrc">
+           <normaloff>:/images/arrow_32x32.png</normaloff>:/images/arrow_32x32.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>32</width>
+           <height>32</height>
+          </size>
+         </property>
+         <property name="flat">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="0">
         <widget class="QPushButton" name="pushButton_delete">
          <property name="text">
           <string/>
@@ -116,13 +156,13 @@
         </widget>
        </item>
        <item row="0" column="0">
-        <widget class="QPushButton" name="pushButton_configure">
+        <widget class="QPushButton" name="pushButton_mode">
          <property name="text">
           <string/>
          </property>
          <property name="icon">
           <iconset resource="res.qrc">
-           <normaloff>:/images/configure.png</normaloff>:/images/configure.png</iconset>
+           <normaloff>:/images/dynamic_32x32.png</normaloff>:/images/dynamic_32x32.png</iconset>
          </property>
          <property name="iconSize">
           <size>
@@ -130,25 +170,8 @@
            <height>32</height>
           </size>
          </property>
-         <property name="flat">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="4" column="0">
-        <widget class="QPushButton" name="pushButton_arrow">
-         <property name="text">
-          <string/>
-         </property>
-         <property name="icon">
-          <iconset resource="res.qrc">
-           <normaloff>:/images/arrow_32x32.png</normaloff>:/images/arrow_32x32.png</iconset>
-         </property>
-         <property name="iconSize">
-          <size>
-           <width>32</width>
-           <height>32</height>
-          </size>
+         <property name="autoRepeatDelay">
+          <number>300</number>
          </property>
          <property name="flat">
           <bool>true</bool>

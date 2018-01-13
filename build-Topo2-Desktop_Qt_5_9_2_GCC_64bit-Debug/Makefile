@@ -694,11 +694,13 @@ compiler_rcc_clean:
 qrc_res.cpp: ../Topo2/res.qrc \
 		/home/luomin/Qt5.9.2/5.9.2/gcc_64/bin/rcc \
 		../Topo2/images/delete_16x16.png \
+		../Topo2/images/dynamic_32x32.png \
 		../Topo2/images/mainflag.png \
 		../Topo2/images/node_64x64.png \
 		../Topo2/images/router_32x32.png \
 		../Topo2/images/line.png \
 		../Topo2/images/node.png \
+		../Topo2/images/mode_32x32.png \
 		../Topo2/images/delete.png \
 		../Topo2/images/router_64x64.png \
 		../Topo2/images/configure.png \
@@ -1221,6 +1223,13 @@ mainwindow.o: ../Topo2/mainwindow.cpp ../Topo2/mainwindow.h \
 		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtWidgets/qtoolbar.h \
 		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtWidgets/QWidget \
 		../Topo2/network.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtCore/QString \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtCore/QJsonObject \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtCore/qjsonobject.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtCore/qjsonvalue.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtWidgets/QMessageBox \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtWidgets/qmessagebox.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtWidgets/qdialog.h \
 		../Topo2/graphwidget.h \
 		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtWidgets/QGraphicsView \
 		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtWidgets/qgraphicsview.h \
@@ -1726,6 +1735,11 @@ globaldefs.o: ../Topo2/globaldefs.cpp ../Topo2/globaldefs.h \
 		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtWidgets/QGraphicsItem \
 		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtWidgets/qgraphicsitem.h \
 		../Topo2/edge.h \
+		../Topo2/network.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtCore/QString \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtCore/QJsonObject \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtCore/qjsonobject.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtCore/qjsonvalue.h \
 		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtCore/QQueue \
 		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtCore/qqueue.h \
 		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtCore/QDebug
@@ -1826,7 +1840,8 @@ network.o: ../Topo2/network.cpp /home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtNetw
 		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtCore/qjsonobject.h \
 		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtCore/qjsonvalue.h \
 		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtCore/QJsonDocument \
-		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtCore/qjsondocument.h
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtCore/qjsondocument.h \
+		/home/luomin/Qt5.9.2/5.9.2/gcc_64/include/QtCore/QDebug
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o network.o ../Topo2/network.cpp
 
 qrc_res.o: qrc_res.cpp 
