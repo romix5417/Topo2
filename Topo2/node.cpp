@@ -53,13 +53,18 @@
 #include "graphwidget.h"
 #include "globaldefs.h"
 #include "route.h"
+#include "nodesetdialog.h"
 
 #include <QGraphicsScene>
 #include <QGraphicsSceneMouseEvent>
 #include <QPainter>
 #include <QStyleOption>
+#include <QApplication>
 
 #include <QDebug>
+#include <QAction>
+#include <QMenu>
+#include <QGraphicsSceneContextMenuEvent>
 
 extern NManager nodeInfoManager;
 extern int buttonFlag;
@@ -161,7 +166,7 @@ bool Node::advance()
 QRectF Node::boundingRect() const
 {
     qreal adjust = 6;
-    return QRectF( -42 - adjust, -30 - adjust, 84 + adjust, 60 + adjust);
+    return QRectF( -40 - adjust, -30 - adjust, 80 + adjust, 60 + adjust);
 }
 //! [8]
 
@@ -228,7 +233,7 @@ void Node::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWid
     painter->drawPixmap(-16,-16,pix);
 
     QString stripv4addr = get_stripv4addr();
-    painter->drawText(-48,28,stripv4addr);
+    painter->drawText(-40,28,stripv4addr);
 
     if(CLICK_LINE_BUTTON == buttonFlag && getSelectFlag()){
         painter->setPen(Qt::green);
@@ -280,6 +285,9 @@ bool Node::getSelectFlag()
 //! [12]
 void Node::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
+    Node *node = NULL;
+    Edge *edge = NULL, *tempEdge = NULL;
+
     if(CLICK_LINE_BUTTON == buttonFlag){
         qDebug()<<"Get the Node info!\r\n"<<endl;
         if(nodeInfoManager.curNode == NULL && nodeInfoManager.lasterNode == NULL){
@@ -308,14 +316,48 @@ void Node::mousePressEvent(QGraphicsSceneMouseEvent *event)
     update();
     QGraphicsItem::mousePressEvent(event);
 
+
     if(CLICK_DELETE_BUTTON == buttonFlag){
-        foreach (Edge *edge, edgeList)
-            if(edge != NULL)
-                nodeInfoManager.g_scene->removeItem(edge);
+
+        foreach (edge, edgeList) {
+            foreach (node, nodeInfoManager.nodeList) {
+                if(node != this){
+                    foreach (tempEdge, node->edges()) {
+                       if(tempEdge == edge){
+                           qDebug()<<"del edge!"<<endl;
+                           node->edges().clear();
+                       }
+                    }
+                }
+            }
+
+            nodeInfoManager.g_scene->removeItem(edge);
+        }
+
 
         nodeInfoManager.nodeList.removeOne(this);
+
+        foreach (node, nodeInfoManager.nodeList) {
+           qDebug()<<"node number:"<<node->get_nodeNum();
+        }
+
         nodeInfoManager.g_scene->removeItem(this);
     }
+}
+
+
+void Node::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
+{
+    QCursor cur = this->cursor();
+    QMenu menu;
+
+    QAction *ConfigIPaddrAction = menu.addAction("ConfigAddr");
+    QAction *helloAction = menu.addAction("HelloAction");
+
+    QObject::connect(ConfigIPaddrAction, SIGNAL(triggered()), this, SLOT(ConfigAddrSlot()));
+    QObject::connect(helloAction, SIGNAL(triggered(bool)), qApp, SLOT(aboutQt()));
+
+    QAction *selectedAction = menu.exec(event->screenPos());
 }
 
 void Node::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
@@ -352,6 +394,48 @@ quint32 Node::get_nodeNum()
 rtable* Node::get_rtable()
 {
     return &rt;
+}
+
+void Node::ConfigAddrSlot()
+{
+    quint32 tempIPv4addr, tempNodeNum;
+
+    qDebug()<<"Config node ipv4 addr!"<<endl;
+
+    NodeSetDialog dialog;
+
+    dialog.set_spinbox_value(nodeNum);
+
+    tempNodeNum = dialog.get_spinbox_value();
+
+    dialog.set_ipv4addr(ipv4addr);
+
+    qDebug()<<"Node ipv4mask:"<<ipv4mask<<endl;
+    dialog.set_ipv4mask(ipv4mask);
+
+
+    if(dialog.exec() == QDialog::Accepted){
+
+        tempIPv4addr = dialog.get_ipv4addr();
+
+        if(tempIPv4addr != 1)
+            ipv4addr = tempIPv4addr;
+
+        nodeNum = tempNodeNum;
+
+        update();
+    }
+
+}
+
+void Node::helloActionSlot()
+{
+    qDebug()<<"Config node ipv4 addr!"<<endl;
+
+    NodeSetDialog dialog;
+
+    dialog.exec();
+
 }
 
 //! [12]

@@ -54,6 +54,7 @@
 #include "route.h"
 
 #include <QGraphicsItem>
+#include <QGraphicsObject>
 #include <QList>
 
 class Edge;
@@ -63,8 +64,10 @@ class QGraphicsSceneMouseEvent;
 QT_END_NAMESPACE
 
 //! [0]
-class Node : public QGraphicsItem
+class Node : public QGraphicsObject
 {
+    Q_OBJECT
+
 public:
     Node(GraphWidget *graphWidget);
 
@@ -96,6 +99,11 @@ protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event) override;
     void hoverEnterEvent(QGraphicsSceneHoverEvent *event) override;
+    void contextMenuEvent(QGraphicsSceneContextMenuEvent *event) override;
+
+private slots:
+    void ConfigAddrSlot();
+    void helloActionSlot();
 
 private:
     QList<Edge *> edgeList;

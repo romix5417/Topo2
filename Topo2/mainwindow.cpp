@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "network.h"
+#include "nodesetdialog.h"
 
 #include <QMessageBox>
 
@@ -23,6 +24,10 @@ MainWindow::MainWindow(QWidget *parent) :
     QObject::connect(ui->pushButton_delete, &QPushButton::clicked,this,&MainWindow::pushButtonDeleteSlot);
     QObject::connect(ui->pushButton_configure, &QPushButton::clicked,this,&MainWindow::pushButtonConfigureSlot);
     QObject::connect(ui->pushButton_arrow, &QPushButton::clicked,this,&MainWindow::pushButtonArrowSlot);
+    QObject::connect(ui->pushButton_mode, &QPushButton::clicked,this,&MainWindow::pushButtonModeSlot);
+
+    connect(ui->actionAbout, SIGNAL(triggered()), this, SLOT(about()));
+    connect(ui->actionAbout_Qt, SIGNAL(triggered()), qApp, SLOT(aboutQt()));
 
     GraphWidget *widget = new GraphWidget;
     //set layout
@@ -67,6 +72,13 @@ void MainWindow::pushButtonDeleteSlot()
     buttonFlag = CLICK_DELETE_BUTTON;
 }
 
+void MainWindow::about()
+//! [11] //! [12]
+{
+    QMessageBox::about(this, tr("About Topo"),
+            tr("<p>Mesh Network Router Configure Software.</p>"));
+}
+
 void MainWindow::pushButtonConfigureSlot()
 {
     //set cursor
@@ -87,6 +99,20 @@ void MainWindow::pushButtonArrowSlot()
     setCursor(QCursor(Qt::ArrowCursor));
 
     buttonFlag = CLICK_ARROW_BUTTON;
+}
+
+void MainWindow::pushButtonModeSlot()
+{
+    //set cursor
+    setCursor(QCursor(Qt::ArrowCursor));
+
+    if(DYNAMIC_MODE == nodeInfoManager.mode_flag){
+        nodeInfoManager.mode_flag = STATIC_MODE;
+        ui->pushButton_mode->setIcon(QIcon(":/images/mode_32x32.png"));
+    }else{
+        nodeInfoManager.mode_flag = DYNAMIC_MODE;
+        ui->pushButton_mode->setIcon(QIcon(":/images/dynamic_32x32.png"));
+    }
 }
 
 MainWindow::~MainWindow()

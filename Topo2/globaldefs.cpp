@@ -9,7 +9,7 @@
 #include <QJsonArray>
 
 NManager nodeInfoManager;
-
+extern int buttonFlag;
 
 quint32 get_ipv4addr(quint32 number)
 {
@@ -127,7 +127,17 @@ void calculate_route()
 
         edgeList = node->edges();
 
+        qDebug()<<"cal node:"<<node->get_nodeNum()<<endl;
+
+        rt = node->get_rtable();
+        while(!rt->routeItem.isEmpty())
+            rt->routeItem.clear();
+
+        rt = NULL;
+
+        //遍历每一条边，找出连接节点，并将节点入队列，形成一个路径队列
         foreach (edge, edgeList) {
+            qDebug()<<"calc the edage!"<<endl;
             queue.enqueue(node);
             tempNode = edge->destNode();
             if( tempNode != node){
@@ -143,12 +153,15 @@ void calculate_route()
         }
 
         url = "http://";
-        //url = url + iptostr(node->get_ipv4addr()) + QString(":8080");
-        url = url + QString("localhost:8080/hello");
+        url = url + iptostr(node->get_ipv4addr()) + QString("/cgi-bin/luci/etws/testRoute");
+        //url = url + QString("localhost:8080/hello");
 
         obj.insert("node", QJsonValue((int)node->get_nodeNum()));
         obj.insert("ipv4addr", iptostr(node->get_ipv4addr()));
-        obj.insert("mode", "static");
+        if( STATIC_MODE == nodeInfoManager.mode_flag)
+            obj.insert("mode", "static");
+        if( DYNAMIC_MODE == nodeInfoManager.mode_flag)
+            obj.insert("mode", "dynamic");
 
         rt = node->get_rtable();
 

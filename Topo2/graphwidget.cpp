@@ -87,6 +87,7 @@ GraphWidget::GraphWidget(QWidget *parent)
     nodeInfoManager.g_scene = g_scene;
     nodeInfoManager.nodePool = 0;
     nodeInfoManager.ipv4addrPool = 0x0a000064;
+    nodeInfoManager.ipv4addrMask = 24;
 
 //! [1]
 /*

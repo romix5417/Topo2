@@ -22,7 +22,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 # You can also select to disable deprecated APIs only up to a certain version of Qt.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
-CONFIG += console
+#CONFIG += console
 
 SOURCES += \
         main.cpp \
@@ -31,7 +31,8 @@ SOURCES += \
     graphwidget.cpp \
     node.cpp \
     globaldefs.cpp \
-    network.cpp
+    network.cpp \
+    nodesetdialog.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -40,10 +41,12 @@ HEADERS += \
     node.h \
     globaldefs.h \
     route.h \
-    network.h
+    network.h \
+    nodesetdialog.h
 
 FORMS += \
-        mainwindow.ui
+        mainwindow.ui \
+    nodesetdialog.ui
 
 RESOURCES += \
     res.qrc

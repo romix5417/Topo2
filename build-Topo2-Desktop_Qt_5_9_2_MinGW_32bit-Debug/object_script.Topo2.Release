@@ -1,0 +1,12 @@
+INPUT(
+./release\main.o
+./release\mainwindow.o
+./release\edge.o
+./release\graphwidget.o
+./release\node.o
+./release\globaldefs.o
+./release\network.o
+./release\qrc_res.o
+./release\moc_mainwindow.o
+./release\moc_graphwidget.o
+);

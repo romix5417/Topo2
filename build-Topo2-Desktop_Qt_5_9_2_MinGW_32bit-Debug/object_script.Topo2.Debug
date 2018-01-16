@@ -1,0 +1,12 @@
+INPUT(
+./debug\main.o
+./debug\mainwindow.o
+./debug\edge.o
+./debug\graphwidget.o
+./debug\node.o
+./debug\globaldefs.o
+./debug\network.o
+./debug\qrc_res.o
+./debug\moc_mainwindow.o
+./debug\moc_graphwidget.o
+);

@@ -14,6 +14,7 @@ typedef struct nodeManager{
     quint32 nodePool;
     quint32 ipv4addrPool;
     quint32 ipv4addrMask;
+    quint32 mode_flag;
 }NManager;
 
 
@@ -34,6 +35,9 @@ void calculate_route();
 #define CLICK_LINE_BUTTON 2
 #define CLICK_DELETE_BUTTON 3
 #define CLICK_CONFIG_BUTTON 4
+
+#define DYNAMIC_MODE 0
+#define STATIC_MODE  1
 
 
 #endif // GLOBALDEFS_H

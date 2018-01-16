@@ -16,11 +16,13 @@ public:
     ~MainWindow();
 
 private slots:
+    void about();
     void pushButtonNodeSlot();
     void pushButtonLineSlot();
     void pushButtonConfigureSlot();
     void pushButtonDeleteSlot();
     void pushButtonArrowSlot();
+    void pushButtonModeSlot();
 
 private:
     Ui::MainWindow *ui;
