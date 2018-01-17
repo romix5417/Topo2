@@ -72,7 +72,7 @@ public:
     Node(GraphWidget *graphWidget);
 
     void addEdge(Edge *edge);
-    QList<Edge *> edges() const;
+    QList<Edge *>& edges();
 
     enum { Type = UserType + 1 };
     int type() const override { return Type; }

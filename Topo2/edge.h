@@ -61,8 +61,8 @@ class Edge : public QGraphicsItem
 public:
     Edge(Node *sourceNode, Node *destNode);
 
-    Node *sourceNode() const;
-    Node *destNode() const;
+    Node *sourceNode();
+    Node *destNode();
 
     void adjust();
 

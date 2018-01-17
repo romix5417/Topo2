@@ -89,7 +89,7 @@ void Node::addEdge(Edge *edge)
     edge->adjust();
 }
 
-QList<Edge *> Node::edges() const
+QList<Edge *>& Node::edges()
 {
     return edgeList;
 }
@@ -287,6 +287,7 @@ void Node::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     Node *node = NULL;
     Edge *edge = NULL, *tempEdge = NULL;
+    bool removeFlag = false;
 
     if(CLICK_LINE_BUTTON == buttonFlag){
         qDebug()<<"Get the Node info!\r\n"<<endl;
@@ -321,21 +322,39 @@ void Node::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
         foreach (edge, edgeList) {
             foreach (node, nodeInfoManager.nodeList) {
-                if(node != this){
-                    foreach (tempEdge, node->edges()) {
-                       if(tempEdge == edge){
-                           qDebug()<<"del edge!"<<endl;
-                           node->edges().clear();
-                       }
+                //if(node != this){
+                foreach (tempEdge, node->edges()) {
+                    if(tempEdge == edge){
+                        //qDebug()<<"del edge:"<<endl;
+                        qDebug("del edge:0x%x, edge index:%d\r\n", tempEdge, node->edges().indexOf(tempEdge));
+                        removeFlag = node->edges().removeAll(tempEdge);
+
+                        qDebug("del edge:0x%x, edge index:%d\r\n", tempEdge, node->edges().indexOf(tempEdge));
+
+                        if(removeFlag){
+                            qDebug("remove the edges success!");
+                        }
+
                     }
                 }
+                //}
             }
 
             nodeInfoManager.g_scene->removeItem(edge);
         }
 
+        node = NULL;
+        tempEdge = NULL;
 
-        nodeInfoManager.nodeList.removeOne(this);
+        foreach (node, nodeInfoManager.nodeList) {
+            qDebug("node number:%d", node->get_nodeNum());
+            foreach (tempEdge, node->edges()) {
+                qDebug("node edge:0x%x",tempEdge);
+            }
+
+        }
+
+        nodeInfoManager.nodeList.removeAll(this);
 
         foreach (node, nodeInfoManager.nodeList) {
            qDebug()<<"node number:"<<node->get_nodeNum();

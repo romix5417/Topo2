@@ -76,12 +76,12 @@ Edge::Edge(Node *sourceNode, Node *destNode)
 //! [0]
 
 //! [1]
-Node *Edge::sourceNode() const
+Node *Edge::sourceNode()
 {
     return source;
 }
 
-Node *Edge::destNode() const
+Node *Edge::destNode()
 {
     return dest;
 }
