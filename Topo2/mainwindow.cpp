@@ -5,9 +5,11 @@
 
 #include <QMessageBox>
 #include <QAxWidget>
+#include <QGraphicsScene>
 
 #include "graphwidget.h"
 #include "globaldefs.h"
+#include "edge.h"
 
 int buttonFlag = CLICK_ARROW_BUTTON;
 
@@ -30,6 +32,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->actionAbout, SIGNAL(triggered()), this, SLOT(about()));
     connect(ui->actionAbout_Qt, SIGNAL(triggered()), qApp, SLOT(aboutQt()));
     connect(ui->actionSignal_Active, SIGNAL(triggered()), this, SLOT(signalActiveSlot()));
+    connect(ui->actionClear_Screen, SIGNAL(triggered()), this, SLOT(clearScreenSlot()));
 
     GraphWidget *widget = new GraphWidget;
     //set layout
@@ -86,6 +89,37 @@ void MainWindow::about()
 
 
     QMessageBox::about(this, tr("About Topo"),str);
+}
+
+void MainWindow::clearScreenSlot()
+{
+    Node *node, *tempNode;
+    Edge *edge;
+
+    foreach (node, nodeInfoManager.nodeList) {
+        foreach (edge, node->edges()) {
+           node->edges().removeAll(edge);
+           if(edge->destNode() == node){
+              tempNode = edge->sourceNode();
+              tempNode->edges().removeAll(edge);
+           }else{
+              tempNode = edge->destNode();
+              tempNode->edges().removeAll(edge);
+           }
+           nodeInfoManager.g_scene->removeItem(edge);
+           delete edge;
+        }
+
+        nodeInfoManager.nodeList.removeAll(node);
+        nodeInfoManager.g_scene->removeItem(node);
+        delete node;
+    }
+
+    nodeInfoManager.nodePool = 0;
+    nodeInfoManager.ipv4addrPool = 0xa000064;
+    nodeInfoManager.ipv4addrMask = 0xffffff00;
+    nodeInfoManager.curNode = NULL;
+    nodeInfoManager.lasterNode = NULL;
 }
 
 void MainWindow::signalActiveSlot()

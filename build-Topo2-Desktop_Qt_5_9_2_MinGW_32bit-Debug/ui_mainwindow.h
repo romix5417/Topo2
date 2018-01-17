@@ -36,6 +36,7 @@ public:
     QAction *actionAbout_Qt;
     QAction *actionExit;
     QAction *actionClear_Screen;
+    QAction *actionSignal_Active;
     QWidget *centralWidget;
     QGridLayout *gridLayout;
     QWidget *widget;
@@ -84,6 +85,8 @@ public:
         actionExit->setObjectName(QStringLiteral("actionExit"));
         actionClear_Screen = new QAction(MainWindow);
         actionClear_Screen->setObjectName(QStringLiteral("actionClear_Screen"));
+        actionSignal_Active = new QAction(MainWindow);
+        actionSignal_Active->setObjectName(QStringLiteral("actionSignal_Active"));
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         QSizePolicy sizePolicy1(QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -208,6 +211,71 @@ public:
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
         menuBar->setGeometry(QRect(0, 0, 923, 23));
+        QPalette palette;
+        QBrush brush(QColor(0, 0, 0, 255));
+        brush.setStyle(Qt::SolidPattern);
+        palette.setBrush(QPalette::Active, QPalette::WindowText, brush);
+        QBrush brush1(QColor(238, 238, 236, 255));
+        brush1.setStyle(Qt::SolidPattern);
+        palette.setBrush(QPalette::Active, QPalette::Button, brush1);
+        QBrush brush2(QColor(127, 255, 255, 255));
+        brush2.setStyle(Qt::SolidPattern);
+        palette.setBrush(QPalette::Active, QPalette::Light, brush2);
+        QBrush brush3(QColor(63, 255, 255, 255));
+        brush3.setStyle(Qt::SolidPattern);
+        palette.setBrush(QPalette::Active, QPalette::Midlight, brush3);
+        QBrush brush4(QColor(0, 127, 127, 255));
+        brush4.setStyle(Qt::SolidPattern);
+        palette.setBrush(QPalette::Active, QPalette::Dark, brush4);
+        QBrush brush5(QColor(0, 170, 170, 255));
+        brush5.setStyle(Qt::SolidPattern);
+        palette.setBrush(QPalette::Active, QPalette::Mid, brush5);
+        palette.setBrush(QPalette::Active, QPalette::Text, brush);
+        QBrush brush6(QColor(255, 255, 255, 255));
+        brush6.setStyle(Qt::SolidPattern);
+        palette.setBrush(QPalette::Active, QPalette::BrightText, brush6);
+        palette.setBrush(QPalette::Active, QPalette::ButtonText, brush);
+        palette.setBrush(QPalette::Active, QPalette::Base, brush1);
+        palette.setBrush(QPalette::Active, QPalette::Window, brush1);
+        palette.setBrush(QPalette::Active, QPalette::Shadow, brush);
+        palette.setBrush(QPalette::Active, QPalette::AlternateBase, brush2);
+        QBrush brush7(QColor(255, 255, 220, 255));
+        brush7.setStyle(Qt::SolidPattern);
+        palette.setBrush(QPalette::Active, QPalette::ToolTipBase, brush7);
+        palette.setBrush(QPalette::Active, QPalette::ToolTipText, brush);
+        palette.setBrush(QPalette::Inactive, QPalette::WindowText, brush);
+        palette.setBrush(QPalette::Inactive, QPalette::Button, brush1);
+        palette.setBrush(QPalette::Inactive, QPalette::Light, brush2);
+        palette.setBrush(QPalette::Inactive, QPalette::Midlight, brush3);
+        palette.setBrush(QPalette::Inactive, QPalette::Dark, brush4);
+        palette.setBrush(QPalette::Inactive, QPalette::Mid, brush5);
+        palette.setBrush(QPalette::Inactive, QPalette::Text, brush);
+        palette.setBrush(QPalette::Inactive, QPalette::BrightText, brush6);
+        palette.setBrush(QPalette::Inactive, QPalette::ButtonText, brush);
+        palette.setBrush(QPalette::Inactive, QPalette::Base, brush1);
+        palette.setBrush(QPalette::Inactive, QPalette::Window, brush1);
+        palette.setBrush(QPalette::Inactive, QPalette::Shadow, brush);
+        palette.setBrush(QPalette::Inactive, QPalette::AlternateBase, brush2);
+        palette.setBrush(QPalette::Inactive, QPalette::ToolTipBase, brush7);
+        palette.setBrush(QPalette::Inactive, QPalette::ToolTipText, brush);
+        palette.setBrush(QPalette::Disabled, QPalette::WindowText, brush4);
+        palette.setBrush(QPalette::Disabled, QPalette::Button, brush1);
+        palette.setBrush(QPalette::Disabled, QPalette::Light, brush2);
+        palette.setBrush(QPalette::Disabled, QPalette::Midlight, brush3);
+        palette.setBrush(QPalette::Disabled, QPalette::Dark, brush4);
+        palette.setBrush(QPalette::Disabled, QPalette::Mid, brush5);
+        palette.setBrush(QPalette::Disabled, QPalette::Text, brush4);
+        palette.setBrush(QPalette::Disabled, QPalette::BrightText, brush6);
+        palette.setBrush(QPalette::Disabled, QPalette::ButtonText, brush4);
+        palette.setBrush(QPalette::Disabled, QPalette::Base, brush1);
+        palette.setBrush(QPalette::Disabled, QPalette::Window, brush1);
+        palette.setBrush(QPalette::Disabled, QPalette::Shadow, brush);
+        QBrush brush8(QColor(0, 255, 255, 255));
+        brush8.setStyle(Qt::SolidPattern);
+        palette.setBrush(QPalette::Disabled, QPalette::AlternateBase, brush8);
+        palette.setBrush(QPalette::Disabled, QPalette::ToolTipBase, brush7);
+        palette.setBrush(QPalette::Disabled, QPalette::ToolTipText, brush);
+        menuBar->setPalette(palette);
         menuFile = new QMenu(menuBar);
         menuFile->setObjectName(QStringLiteral("menuFile"));
         menuOption = new QMenu(menuBar);
@@ -229,6 +297,7 @@ public:
         menuFile->addAction(actionSave_as);
         menuFile->addAction(actionExit);
         menuOption->addAction(actionClear_Screen);
+        menuOption->addAction(actionSignal_Active);
         menuHelp->addAction(actionAbout);
         menuHelp->addAction(actionAbout_Qt);
 
@@ -249,11 +318,30 @@ public:
         actionAbout_Qt->setText(QApplication::translate("MainWindow", "About Qt", Q_NULLPTR));
         actionExit->setText(QApplication::translate("MainWindow", "Exit", Q_NULLPTR));
         actionClear_Screen->setText(QApplication::translate("MainWindow", "Clear Screen", Q_NULLPTR));
+        actionSignal_Active->setText(QApplication::translate("MainWindow", "Signal Active", Q_NULLPTR));
+#ifndef QT_NO_TOOLTIP
+        pushButton_mode->setToolTip(QApplication::translate("MainWindow", "<html><head/><body><p><span style=\" color:#5500ff;\">\350\267\257\347\224\261\346\250\241\345\274\217</span></p></body></html>", Q_NULLPTR));
+#endif // QT_NO_TOOLTIP
         pushButton_mode->setText(QString());
+#ifndef QT_NO_TOOLTIP
+        pushButton_delete->setToolTip(QApplication::translate("MainWindow", "<html><head/><body><p><span style=\" color:#5500ff;\">\345\210\240\351\231\244\351\241\271\347\233\256</span></p></body></html>", Q_NULLPTR));
+#endif // QT_NO_TOOLTIP
         pushButton_delete->setText(QString());
+#ifndef QT_NO_TOOLTIP
+        pushButton_arrow->setToolTip(QApplication::translate("MainWindow", "<html><head/><body><p><span style=\" color:#5500ff;\">\347\247\273\345\212\250\350\212\202\347\202\271</span></p></body></html>", Q_NULLPTR));
+#endif // QT_NO_TOOLTIP
         pushButton_arrow->setText(QString());
+#ifndef QT_NO_TOOLTIP
+        pushButton_configure->setToolTip(QApplication::translate("MainWindow", "<html><head/><body><p><span style=\" color:#5500ff;\">\350\267\257\347\224\261\351\205\215\347\275\256</span></p></body></html>", Q_NULLPTR));
+#endif // QT_NO_TOOLTIP
         pushButton_configure->setText(QString());
+#ifndef QT_NO_TOOLTIP
+        pushButton_node->setToolTip(QApplication::translate("MainWindow", "<html><head/><body><p><span style=\" color:#5500ff;\">\350\212\202\347\202\271\350\256\276\347\275\256</span></p></body></html>", Q_NULLPTR));
+#endif // QT_NO_TOOLTIP
         pushButton_node->setText(QString());
+#ifndef QT_NO_TOOLTIP
+        pushButton_line->setToolTip(QApplication::translate("MainWindow", "<html><head/><body><p><span style=\" color:#5500ff;\">\351\223\276\350\267\257\350\256\276\347\275\256</span></p></body></html>", Q_NULLPTR));
+#endif // QT_NO_TOOLTIP
         pushButton_line->setText(QString());
         pushButton_null->setText(QString());
         menuFile->setTitle(QApplication::translate("MainWindow", "File", Q_NULLPTR));

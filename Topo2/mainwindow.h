@@ -18,6 +18,7 @@ public:
 
 private slots:
     void about();
+    void clearScreenSlot();
     void signalActiveSlot();
     void pushButtonNodeSlot();
     void pushButtonLineSlot();

@@ -6,7 +6,10 @@ INPUT(
 ./debug\node.o
 ./debug\globaldefs.o
 ./debug\network.o
+./debug\nodesetdialog.o
 ./debug\qrc_res.o
 ./debug\moc_mainwindow.o
 ./debug\moc_graphwidget.o
+./debug\moc_node.o
+./debug\moc_nodesetdialog.o
 );

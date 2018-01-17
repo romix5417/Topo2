@@ -6,7 +6,10 @@ INPUT(
 ./release\node.o
 ./release\globaldefs.o
 ./release\network.o
+./release\nodesetdialog.o
 ./release\qrc_res.o
 ./release\moc_mainwindow.o
 ./release\moc_graphwidget.o
+./release\moc_node.o
+./release\moc_nodesetdialog.o
 );
