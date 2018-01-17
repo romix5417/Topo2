@@ -22,7 +22,7 @@ QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_Node_t {
     QByteArrayData data[4];
-    char stringdata0[37];
+    char stringdata0[33];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -34,10 +34,10 @@ static const qt_meta_stringdata_Node_t qt_meta_stringdata_Node = {
 QT_MOC_LITERAL(0, 0, 4), // "Node"
 QT_MOC_LITERAL(1, 5, 14), // "ConfigAddrSlot"
 QT_MOC_LITERAL(2, 20, 0), // ""
-QT_MOC_LITERAL(3, 21, 15) // "helloActionSlot"
+QT_MOC_LITERAL(3, 21, 11) // "OpenUrlSlot"
 
     },
-    "Node\0ConfigAddrSlot\0\0helloActionSlot"
+    "Node\0ConfigAddrSlot\0\0OpenUrlSlot"
 };
 #undef QT_MOC_LITERAL
 
@@ -72,7 +72,7 @@ void Node::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void *
         Q_UNUSED(_t)
         switch (_id) {
         case 0: _t->ConfigAddrSlot(); break;
-        case 1: _t->helloActionSlot(); break;
+        case 1: _t->OpenUrlSlot(); break;
         default: ;
         }
     }

@@ -39,5 +39,7 @@ void calculate_route();
 #define DYNAMIC_MODE 0
 #define STATIC_MODE  1
 
+#define gVersion "0.0.2"
+
 
 #endif // GLOBALDEFS_H

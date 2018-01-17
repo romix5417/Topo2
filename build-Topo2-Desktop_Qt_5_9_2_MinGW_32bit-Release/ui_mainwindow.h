@@ -36,6 +36,7 @@ public:
     QAction *actionAbout_Qt;
     QAction *actionExit;
     QAction *actionClear_Screen;
+    QAction *actionSignal_Active;
     QWidget *centralWidget;
     QGridLayout *gridLayout;
     QWidget *widget;
@@ -84,6 +85,8 @@ public:
         actionExit->setObjectName(QStringLiteral("actionExit"));
         actionClear_Screen = new QAction(MainWindow);
         actionClear_Screen->setObjectName(QStringLiteral("actionClear_Screen"));
+        actionSignal_Active = new QAction(MainWindow);
+        actionSignal_Active->setObjectName(QStringLiteral("actionSignal_Active"));
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         QSizePolicy sizePolicy1(QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -212,7 +215,7 @@ public:
         QBrush brush(QColor(0, 0, 0, 255));
         brush.setStyle(Qt::SolidPattern);
         palette.setBrush(QPalette::Active, QPalette::WindowText, brush);
-        QBrush brush1(QColor(0, 255, 255, 255));
+        QBrush brush1(QColor(238, 238, 236, 255));
         brush1.setStyle(Qt::SolidPattern);
         palette.setBrush(QPalette::Active, QPalette::Button, brush1);
         QBrush brush2(QColor(127, 255, 255, 255));
@@ -232,7 +235,7 @@ public:
         brush6.setStyle(Qt::SolidPattern);
         palette.setBrush(QPalette::Active, QPalette::BrightText, brush6);
         palette.setBrush(QPalette::Active, QPalette::ButtonText, brush);
-        palette.setBrush(QPalette::Active, QPalette::Base, brush6);
+        palette.setBrush(QPalette::Active, QPalette::Base, brush1);
         palette.setBrush(QPalette::Active, QPalette::Window, brush1);
         palette.setBrush(QPalette::Active, QPalette::Shadow, brush);
         palette.setBrush(QPalette::Active, QPalette::AlternateBase, brush2);
@@ -249,7 +252,7 @@ public:
         palette.setBrush(QPalette::Inactive, QPalette::Text, brush);
         palette.setBrush(QPalette::Inactive, QPalette::BrightText, brush6);
         palette.setBrush(QPalette::Inactive, QPalette::ButtonText, brush);
-        palette.setBrush(QPalette::Inactive, QPalette::Base, brush6);
+        palette.setBrush(QPalette::Inactive, QPalette::Base, brush1);
         palette.setBrush(QPalette::Inactive, QPalette::Window, brush1);
         palette.setBrush(QPalette::Inactive, QPalette::Shadow, brush);
         palette.setBrush(QPalette::Inactive, QPalette::AlternateBase, brush2);
@@ -267,7 +270,9 @@ public:
         palette.setBrush(QPalette::Disabled, QPalette::Base, brush1);
         palette.setBrush(QPalette::Disabled, QPalette::Window, brush1);
         palette.setBrush(QPalette::Disabled, QPalette::Shadow, brush);
-        palette.setBrush(QPalette::Disabled, QPalette::AlternateBase, brush1);
+        QBrush brush8(QColor(0, 255, 255, 255));
+        brush8.setStyle(Qt::SolidPattern);
+        palette.setBrush(QPalette::Disabled, QPalette::AlternateBase, brush8);
         palette.setBrush(QPalette::Disabled, QPalette::ToolTipBase, brush7);
         palette.setBrush(QPalette::Disabled, QPalette::ToolTipText, brush);
         menuBar->setPalette(palette);
@@ -292,6 +297,7 @@ public:
         menuFile->addAction(actionSave_as);
         menuFile->addAction(actionExit);
         menuOption->addAction(actionClear_Screen);
+        menuOption->addAction(actionSignal_Active);
         menuHelp->addAction(actionAbout);
         menuHelp->addAction(actionAbout_Qt);
 
@@ -312,6 +318,7 @@ public:
         actionAbout_Qt->setText(QApplication::translate("MainWindow", "About Qt", Q_NULLPTR));
         actionExit->setText(QApplication::translate("MainWindow", "Exit", Q_NULLPTR));
         actionClear_Screen->setText(QApplication::translate("MainWindow", "Clear Screen", Q_NULLPTR));
+        actionSignal_Active->setText(QApplication::translate("MainWindow", "Signal Active", Q_NULLPTR));
 #ifndef QT_NO_TOOLTIP
         pushButton_mode->setToolTip(QApplication::translate("MainWindow", "<html><head/><body><p><span style=\" color:#5500ff;\">\350\267\257\347\224\261\346\250\241\345\274\217</span></p></body></html>", Q_NULLPTR));
 #endif // QT_NO_TOOLTIP

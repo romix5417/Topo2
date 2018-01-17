@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QAxWidget>
 
 namespace Ui {
 class MainWindow;
@@ -17,6 +18,7 @@ public:
 
 private slots:
     void about();
+    void signalActiveSlot();
     void pushButtonNodeSlot();
     void pushButtonLineSlot();
     void pushButtonConfigureSlot();
@@ -26,6 +28,8 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
+    int signalActiveFlag;
+    QAxWidget *IEwidget;
 };
 
 #endif // MAINWINDOW_H

@@ -65,6 +65,7 @@
 #include <QAction>
 #include <QMenu>
 #include <QGraphicsSceneContextMenuEvent>
+#include <QDesktopServices>
 
 extern NManager nodeInfoManager;
 extern int buttonFlag;
@@ -371,12 +372,12 @@ void Node::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
     QMenu menu;
 
     QAction *ConfigIPaddrAction = menu.addAction("ConfigAddr");
-    QAction *helloAction = menu.addAction("HelloAction");
+    QAction *OpenUrlAction = menu.addAction("OpenWeb");
 
     QObject::connect(ConfigIPaddrAction, SIGNAL(triggered()), this, SLOT(ConfigAddrSlot()));
-    QObject::connect(helloAction, SIGNAL(triggered(bool)), qApp, SLOT(aboutQt()));
+    QObject::connect(OpenUrlAction, SIGNAL(triggered(bool)), this, SLOT(OpenUrlSlot()));
 
-    QAction *selectedAction = menu.exec(event->screenPos());
+    menu.exec(event->screenPos());
 }
 
 void Node::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
@@ -447,14 +448,11 @@ void Node::ConfigAddrSlot()
 
 }
 
-void Node::helloActionSlot()
+void Node::OpenUrlSlot()
 {
-    qDebug()<<"Config node ipv4 addr!"<<endl;
-
-    NodeSetDialog dialog;
-
-    dialog.exec();
-
+    QString url="http://";
+    url += iptostr(get_ipv4addr());
+    QDesktopServices::openUrl(QUrl(url));
 }
 
 //! [12]

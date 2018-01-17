@@ -4,6 +4,7 @@
 #include "nodesetdialog.h"
 
 #include <QMessageBox>
+#include <QAxWidget>
 
 #include "graphwidget.h"
 #include "globaldefs.h"
@@ -28,11 +29,15 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(ui->actionAbout, SIGNAL(triggered()), this, SLOT(about()));
     connect(ui->actionAbout_Qt, SIGNAL(triggered()), qApp, SLOT(aboutQt()));
+    connect(ui->actionSignal_Active, SIGNAL(triggered()), this, SLOT(signalActiveSlot()));
 
     GraphWidget *widget = new GraphWidget;
     //set layout
     ui->gridLayout->addWidget(widget,0,1);
     ui->gridLayout->setColumnStretch(1,12);
+
+    signalActiveFlag = 0;
+    IEwidget = NULL;
 }
 
 void MainWindow::pushButtonNodeSlot()
@@ -75,8 +80,39 @@ void MainWindow::pushButtonDeleteSlot()
 void MainWindow::about()
 //! [11] //! [12]
 {
-    QMessageBox::about(this, tr("About Topo"),
-            tr("<p>Mesh Network Router Configure Software.</p>"));
+    QString str = "Mesh Network Router Configure Software.\nVersion Number: ";
+
+    str = str + QString(gVersion) + QString("\nDeveloper: LuoMin Wenkun");
+
+
+    QMessageBox::about(this, tr("About Topo"),str);
+}
+
+void MainWindow::signalActiveSlot()
+{
+    if(signalActiveFlag == 0){
+        if(IEwidget == NULL){
+            IEwidget = new QAxWidget;
+
+            ui->gridLayout->addWidget(IEwidget,0,2);
+            ui->gridLayout->setColumnStretch(2, 4);
+
+            IEwidget->setControl(QString::fromUtf8("{8856F961-340A-11D0-A96B-00C04FD705A2}")); //设置插件为IE
+
+            IEwidget->dynamicCall("Navigate(const QString&)", "http://192.168.8.1/cgi-bin/luci/admin/etws/lists?username=root&password=etwsadmin");
+
+            signalActiveFlag = 1;
+        }
+
+    }else{
+        ui->gridLayout->removeWidget(IEwidget);
+        ui->gridLayout->setColumnStretch(0,1);
+        ui->gridLayout->setColumnStretch(1,12);
+        ui->gridLayout->setColumnStretch(2,0);
+        delete IEwidget;
+        IEwidget = NULL;
+        signalActiveFlag = 0;
+    }
 }
 
 void MainWindow::pushButtonConfigureSlot()

@@ -103,7 +103,7 @@ protected:
 
 private slots:
     void ConfigAddrSlot();
-    void helloActionSlot();
+    void OpenUrlSlot();
 
 private:
     QList<Edge *> edgeList;
