@@ -13,5 +13,7 @@
         <file>images/router_64x64.png</file>
         <file>images/mode_32x32.png</file>
         <file>images/dynamic_32x32.png</file>
+        <file>stylesheet.qss</file>
+        <file>stylesheet_black.qss</file>
     </qresource>
 </RCC>

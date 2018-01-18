@@ -69,6 +69,7 @@ void node_recur(QQueue<Node *> &queue, Node *node)
     }
 }
 
+//解析路径队列，将每个节点的路由添加到每个节点的路由表中
 void route_resolving(QQueue<Node *> &queue)
 {
     Node *firstNode = NULL, *secNode = NULL, *tempNode = NULL;
